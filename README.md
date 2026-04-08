@@ -3,9 +3,10 @@
 # Hi, I’m Shardul Shripad Hingane
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg" alt="Snake animation" />
+  <a href="https://github.com/ryo-ma/github-profile-trophy">
+    <img src="https://github-profile-trophy.vercel.app/?username=Shardul9999&theme=onedark&column=7&margin-w=15&no-bg=true" alt="Trophies" />
+  </a>
 </div>
-
 > _"The best way to predict the future is to invent it." – Alan Kay_
 
 <br/>
