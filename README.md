@@ -3,7 +3,7 @@
 
 
 ## 🌐 Socials:
-[![LeetCode](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
+[![LeetCode](https://img.shields.io/badge/Leetcode-%230077B5.svg?logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/shardul_7979) 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/ShardulHingane) 
 [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:shardulhingane16@gmail.com) 
