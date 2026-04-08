@@ -1,21 +1,84 @@
-# 💫 About Me:
-🔭 I’m currently working on a Music Player called Cloudbeat.<br>🌱 I’m currently learning Python Backend with Flask and Core subjects<br>
+<div align="center">
 
+# Hi, I’m Shardul Hingane
 
-## 🌐 Socials:
-[![LeetCode](https://img.shields.io/badge/Leetcode-%230077B5.svg?logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/shardul_7979) 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/ShardulHingane) 
-[![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:shardulhingane16@gmail.com) 
+<a href="https://git.io/typing-svg">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=25&pause=1000&color=3399FF&center=true&vCenter=true&width=500&lines=Python+Backend+Developer;Flask+%26+Core+CS;Building+Cloudbeat;Problem+Solver" alt="Typing SVG" />
+</a>
 
-# 💻 Tech Stack:
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34) ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white) ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=Shardul9999&theme=date_night&hide_border=false&include_all_commits=true&count_private=true)<br/>
-![](https://nirzak-streak-stats.vercel.app/?user=Shardul9999&theme=date_night&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=Shardul9999&theme=date_night&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
+> _"The best way to predict the future is to invent it." – Alan Kay_
+
+<br/>
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ShardulHingane)
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F?style=for-the-badge&logo=Instagram&logoColor=white)](YOUR_INSTAGRAM_LINK_HERE)
+[![Mastodon](https://img.shields.io/badge/Mastodon-2B90D9?style=for-the-badge&logo=mastodon&logoColor=white)](https://mastodon.social/@ShardulHingane)
+[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:YOUR_EMAIL@gmail.com)
+
+<br/>
+
+I am a software enthusiast specializing in **Backend Development and Python**. I am currently focused on building **Cloudbeat**, a music player integrated with Google Drive, while deepening my knowledge of **Core CS subjects** and scalable architecture.
+
+I enjoy solving problems through code, whether it's building CLI tools, web applications, or exploring the world of AI agents.
+
+</div>
 
 ---
-[![](https://visitcount.itsvg.in/api?id=Shardul9999&icon=0&color=0)](https://visitcount.itsvg.in)
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+<div align="center">
+
+## 🚀 Current Projects
+
+| **Project** | **Tech Stack** | **Status** |
+|:---:|:---:|:---:|
+| **Cloudbeat** | Python, Flask, Google Drive API | In Development |
+| **CLI Task Tracker** | Python, JSON, File I/O | Completed |
+| **IP Calculator** | Python, Tkinter (GUI) | Completed |
+
+</div>
+
+---
+
+<div align="center">
+
+## Technical Arsenal
+
+### Languages & Backend
+<img src="https://skillicons.dev/icons?i=python,flask,java,mysql,sqlite,cpp,c" />
+
+### Frontend & Database
+<img src="https://skillicons.dev/icons?i=html,css,tailwind,firebase,supabase" />
+
+### Tools & Platforms
+<img src="https://skillicons.dev/icons?i=git,github,vscode,postman,linux,docker" />
+
+</div>
+
+---
+
+## GitHub Analytics
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Shardul9999&show_icons=true&theme=dark&hide_border=true&include_all_commits=true" height="180" alt="stats" />
+  
+  <img src="https://streak-stats.demolab.com?user=Shardul9999&theme=dark&hide_border=true" height="180" alt="streak" />
+
+  <br/>
+
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Shardul9999&theme=github-dark&hide_border=true" />
+
+</div>
+
+---
+
+## Professional Objectives
+
+- **Backend Mastery:** Deep diving into Flask and asynchronous Python for high-performance APIs.
+- **Project Cloudbeat:** Successfully deploying a full-featured music player with seamless cloud integration.
+- **Open Source:** Contributing to Python-based tools and libraries to help the developer community.
+
+---
+
+<div align="center">
+  <sub>Let's connect and build something awesome together.</sub>
+</div>
