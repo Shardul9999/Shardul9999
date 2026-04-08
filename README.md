@@ -1,6 +1,6 @@
 <div align="center">
 
-# Hi, I’m Shardul Hingane
+# Hi, I’m Shardul Shripad Hingane
 
 <a href="https://git.io/typing-svg">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=25&pause=1000&color=3399FF&center=true&vCenter=true&width=500&lines=Python+Backend+Developer;Flask+%26+Core+CS;Building+Cloudbeat;Problem+Solver" alt="Typing SVG" />
