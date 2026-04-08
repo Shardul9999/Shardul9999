@@ -31,7 +31,7 @@ I enjoy solving problems through code, whether it's building CLI tools, web appl
 
 | **Project** | **Tech Stack** | **Status** |
 |:---:|:---:|:---:|
-| **Cloudbeat** | Python, Flask, Google Drive API | In Development |
+| **Cloudbeat** | Python, Flask, React, Supabase| In Development |
 | **CLI Task Tracker** | Python, JSON, File I/O | Completed |
 | **IP Calculator** | Python, Tkinter (GUI) | Completed |
 
@@ -44,13 +44,13 @@ I enjoy solving problems through code, whether it's building CLI tools, web appl
 ## Technical Arsenal
 
 ### Languages & Backend
-<img src="https://skillicons.dev/icons?i=python,flask,java,mysql,sqlite,cpp,c" />
+<img src="https://skillicons.dev/icons?i=python,flask,java,mysql,postgresql,sqlite,cpp" />
 
 ### Frontend & Database
 <img src="https://skillicons.dev/icons?i=html,css,tailwind,firebase,supabase" />
 
 ### Tools & Platforms
-<img src="https://skillicons.dev/icons?i=git,github,vscode,postman,linux,docker" />
+<img src="https://skillicons.dev/icons?i=git,github,vscode,linux,docker" />
 
 </div>
 
