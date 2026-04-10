@@ -11,8 +11,9 @@
 <br/>
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ShardulHingane)
+[![Leetode](https://img.shields.io/badge/Leetcode-2B90D9?style=for-the-badge&logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F?style=for-the-badge&logo=Instagram&logoColor=white)](YOUR_INSTAGRAM_LINK_HERE)
-[![Mastodon](https://img.shields.io/badge/Leetcode-2B90D9?style=for-the-badge&logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
+[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:YOUR_EMAIL@gmail.com)
 [![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:YOUR_EMAIL@gmail.com)
 
 <br/>
