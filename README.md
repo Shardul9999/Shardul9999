@@ -59,7 +59,8 @@ I enjoy solving problems through code, whether it's building CLI tools, web appl
 ## GitHub Analytics
 
 <div align="center">
-<img src="https://github-readme-stats.vercel.app/api?username=Shardul9999&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true" height="180" alt="stats" />  <img src="https://streak-stats.demolab.com?user=Shardul9999&theme=dark&hide_border=true" height="180" alt="streak" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Shardul9999&layout=compact&theme=dark&hide_border=true" height="180" />
+ <img src="https://streak-stats.demolab.com?user=Shardul9999&theme=dark&hide_border=true" height="180" alt="streak" />
 
   <br/>
 
