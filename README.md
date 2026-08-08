@@ -43,11 +43,10 @@ Full-stack RAG pipeline turning PDFs into a searchable, conversational knowledge
 
 | Project | Description | Stack |
 |---|---|---|
-| [5-Agent AI System](https://github.com/Shardul9999/AI_Agents) | 5 AI agents (orchestrator, planner, executor, memory) working together to solve a problem | Python |
-| [CLI Task Manager](https://github.com/Shardul9999/Tasks_CLI) | CLI-based task management system | Python |
-| [CRUD Operations](https://github.com/Shardul9999/CRUD) | CRUD fundamentals practice | Python |
-
-**Deep dives:** Query optimization on a 1M-row PostgreSQL dataset (up to 20,000x faster via B-Tree/partial/GIN indexing) · async task queue with `asyncio.Queue` + Pydantic validation · FastAPI request lifecycle internals · multi-provider LLM fallback gateway with automatic failover.
+| **Query Optimization & Indexing** | 1M-row PostgreSQL dataset. Diagnosed slow queries with `EXPLAIN ANALYZE`, fixed with B-Tree, partial, and GIN indexes — up to 20,000x faster | PostgreSQL, EXPLAIN ANALYZE, Python |
+| **Async Task Queue** | Producer-consumer queue built on `asyncio.Queue` with a concurrent worker pool, Pydantic task validation, and isolated failure handling | Python, asyncio, Pydantic |
+| **FastAPI Request Lifecycle** | Traces a request end-to-end through middleware, dependency injection, auth, and routing to show exactly how FastAPI handles it internally | FastAPI, Middleware, Dependency Injection |
+| **AI Fallback Gateway** | Multi-provider LLM gateway with automatic failover across models — retries, health checks, and graceful degradation so a single provider outage never breaks the app | Python, FastAPI, LLM APIs |
 
 ---
 
