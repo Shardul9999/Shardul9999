@@ -1,78 +1,88 @@
 <div align="center">
 
-# Hi, I’m Shardul Shripad Hingane
+# Hi, I'm Shardul Shripad Hingane
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg" alt="Snake animation" />
-</div>
+<img src="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg" alt="Snake animation" />
 
 > _"The best way to predict the future is to invent it." – Alan Kay_
 
 <br/>
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ShardulHingane)
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F?style=for-the-badge&logo=Instagram&logoColor=white)](YOUR_INSTAGRAM_LINK_HERE)
-[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:YOUR_EMAIL@gmail.com)
-[![Leetode](https://img.shields.io/badge/Leetcode-2B90D9?style=for-the-badge&logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
+[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shardulhingane16@gmail.com)
+[![LeetCode](https://img.shields.io/badge/LeetCode-2B90D9?style=for-the-badge&logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
 
 <br/>
 
-I am a software enthusiast specializing in **Backend Development and Python**. I am currently focused on building **Cloudbeat**, a music player integrated with Google Drive, while deepening my knowledge of **Core CS subjects** and scalable architecture.
+B.Tech in Information Technology @ **SGGS Nanded** (2024–2027), CGPA 8.5. I build backend systems and full-stack apps — production APIs, RAG pipelines, and the occasional 3D interface. Currently deepening my grip on **async Python, distributed systems, and AI agent architectures**.
 
-I enjoy solving problems through code, whether it's building CLI tools, web applications, or exploring the world of AI agents.
-
-</div>
-
----
-
-<div align="center">
-
-## 🚀 Current Projects
-
-| **Project** | **Tech Stack** | **Status** |
-|:---:|:---:|:---:|
-| **Cloudbeat** | Python, Flask, React, Supabase| In Development |
-| **CLI Task Tracker** | Python, JSON, File I/O | Completed |
-| **IP Calculator** | Python, Tkinter (GUI) | Completed |
+400+ DSA problems solved across competitive practice.
 
 </div>
 
 ---
 
-<div align="center">
+## 🚀 Featured Projects
+
+### [URL Shortener & Analytics API](https://github.com/Shardul9999/url-shortener)
+Production-grade backend API with Redis cache-aside cutting redirect latency **6x** (40ms → 6.7ms). Sliding-window rate limiter via atomic Redis pipelines, SSRF-hardened input validation, 22 pytest cases at 94% coverage, CI on every commit.
+**Stack:** FastAPI · PostgreSQL · Redis · Docker · SQLAlchemy · Alembic · GitHub Actions
+[Live docs ↗](https://url-shortener-672q.onrender.com/docs)
+
+### [Readr — AI PDF Chatbot](https://github.com/Shardul9999/ai-pdf-chatbot-langchain)
+Full-stack RAG pipeline turning PDFs into a searchable, conversational knowledge base — ~200ms parse, ~1.3s embed, 500ms retrieval. Gemini embeddings + Supabase pgvector for similarity search, Groq LLM streaming answers over SSE, Clerk auth with per-user data isolation.
+**Stack:** Next.js · TypeScript · LangGraph · Supabase pgvector · Groq · Gemini · Clerk
+
+### [CloudBeat](https://github.com/Shardul9999/CloudBeat)
+3D music platform with full Spotify OAuth — browse your library and control playback inside a GPU-accelerated Spline scene locked at 60fps.
+**Stack:** React.js · Flask · Spline 3D · Supabase · Spotify API · OAuth 2.0
+
+---
+
+## 🛠 Other Builds
+
+| Project | Description | Stack |
+|---|---|---|
+| [5-Agent AI System](https://github.com/Shardul9999/AI_Agents) | 5 AI agents (orchestrator, planner, executor, memory) working together to solve a problem | Python |
+| [CLI Task Manager](https://github.com/Shardul9999/Tasks_CLI) | CLI-based task management system | Python |
+| [CRUD Operations](https://github.com/Shardul9999/CRUD) | CRUD fundamentals practice | Python |
+
+**Deep dives:** Query optimization on a 1M-row PostgreSQL dataset (up to 20,000x faster via B-Tree/partial/GIN indexing) · async task queue with `asyncio.Queue` + Pydantic validation · FastAPI request lifecycle internals · multi-provider LLM fallback gateway with automatic failover.
+
+---
 
 ## Technical Arsenal
 
-### Languages & Backend
-<img src="https://skillicons.dev/icons?i=python,flask,java,mysql,postgresql,sqlite,cpp" />
+**Languages & Backend**
+<img src="https://skillicons.dev/icons?i=python,cpp,java,javascript,flask,fastapi" />
 
-### Frontend & Database
-<img src="https://skillicons.dev/icons?i=html,css,tailwind,firebase,supabase" />
+**Frontend & Data**
+<img src="https://skillicons.dev/icons?i=react,nextjs,html,css,tailwind,postgres,sqlite,supabase,redis" />
 
-### Tools & Platforms
-<img src="https://skillicons.dev/icons?i=git,github,vscode,linux,docker" />
-
-</div>
+**Tools & Platforms**
+<img src="https://skillicons.dev/icons?i=git,github,docker,gcp,vscode,linux" />
 
 ---
 
-##GitHub Analytics
+## GitHub Analytics
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Shardul9999&theme=github-dark&hide_border=true" width="100%" alt="Activity Graph" />
 
-  <br/>
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=Shardul9999&theme=github-dark&hide_border=true" width="100%" alt="Activity Graph" />
 
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Shardul9999&theme=dark&hide_border=true" alt="Streak Stats" />
+<br/>
+
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=Shardul9999&theme=dark&hide_border=true" alt="Streak Stats" />
+
 </div>
 
 ---
 
-## Professional Objectives
+## Currently
 
-- **Backend Mastery:** Deep diving into Flask and asynchronous Python for high-performance APIs.
-- **Project Cloudbeat:** Successfully deploying a full-featured music player with seamless cloud integration.
-- **Open Source:** Contributing to Python-based tools and libraries to help the developer community.
+- 🔭 Shipping **Readr** — a production RAG chatbot (LangGraph + Supabase pgvector + Groq)
+- ⚡ Sharpening backend fundamentals: async Python, caching strategies, DB internals
+- 🌱 Exploring multi-agent AI systems and orchestration patterns
 
 ---
 
