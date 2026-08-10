@@ -131,7 +131,6 @@ Smaller builds done to understand the machinery — **query optimization** (1M-r
 
 <br/>
 
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=Shardul9999&show_icons=true&theme=dark&hide_border=true&count_private=true" alt="GitHub Stats" />
 <img height="165" src="https://github-readme-streak-stats.herokuapp.com/?user=Shardul9999&theme=dark&hide_border=true" alt="Streak Stats" />
 
 </div>
