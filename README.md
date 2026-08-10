@@ -4,6 +4,8 @@
 
 ### Backend &amp; AI Systems Engineer
 
+<img src="https://komarev.com/ghpvc/?username=Shardul9999&label=Profile%20Views&color=C0392B&style=flat-square" alt="Profile views" />
+
 <img src="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg" alt="Contribution snake animation" />
 
 <p>
