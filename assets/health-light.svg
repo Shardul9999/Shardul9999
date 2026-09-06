@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 318" width="1200" height="318" role="img" aria-label="A terminal running a health check against shardul.sys">
+  <title>health — still up</title>
+  <style>
+  .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+  .h-title { font-size: 29px; font-weight: 700; letter-spacing: -0.4px; }
+  .h-sub   { font-size: 12px; fill: #5b6672; }
+
+  .t-bar   { font-size: 11px; fill: #5b6672; }
+  .t-cmd   { font-size: 13px; fill: #161b22; }
+  .t-key   { font-size: 13px; fill: #c0392b; }
+  .t-str   { font-size: 13px; fill: #0f766e; }
+  .t-punc  { font-size: 13px; fill: #5b6672; }
+</style>
+  <rect width="1200" height="318" rx="14" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="1199" height="317" rx="14" fill="none" stroke="#d5dce4"/>
+  <path d="M0,40 H1200" stroke="#d5dce4" stroke-width="1"/>
+  <circle cx="30" cy="20" r="6" fill="#ff5f57" opacity="0.85"/>
+  <circle cx="50" cy="20" r="6" fill="#febc2e" opacity="0.85"/>
+  <circle cx="70" cy="20" r="6" fill="#28c840" opacity="0.85"/>
+  <text class="mono t-bar" x="600" y="24" text-anchor="middle">shardul.sys — health check</text>
+  <text class="mono t-str" x="40" y="82">$</text>
+  <defs><clipPath id="typing">
+    <rect x="55.6" y="68" width="0" height="20">
+      <animate attributeName="width" dur="9.0s" repeatCount="indefinite"
+               values="0;0;304;304;0"
+               keyTimes="0;0.02;0.198;0.95;1"/>
+    </rect>
+  </clipPath></defs>
+  <g clip-path="url(#typing)"><text class="mono t-cmd" x="56" y="82">curl -s https://shardul.sys/health | jq</text></g>
+  <rect y="70" width="8" height="16" fill="#0f766e" opacity="0.85">
+    <animate attributeName="x" dur="9.0s" repeatCount="indefinite"
+             values="56;56;360;360"
+             keyTimes="0;0.02;0.198;1"/>
+    <animate attributeName="opacity" values="0.85;0.85;0;0" dur="9.0s"
+             keyTimes="0;0.238;0.258;1"
+             repeatCount="indefinite"/>
+  </rect>
+  <text class="mono" x="40" y="128" opacity="0"><tspan class="t-punc" xml:space="preserve">{</tspan><animate attributeName="opacity" dur="9.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.237;0.257;0.95;1"/></text>
+  <text class="mono" x="40" y="151" opacity="0"><tspan class="t-key" xml:space="preserve">  "status":  </tspan><tspan class="t-str" xml:space="preserve">"up"</tspan><tspan class="t-punc" xml:space="preserve">,</tspan><animate attributeName="opacity" dur="9.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.272;0.292;0.95;1"/></text>
+  <text class="mono" x="40" y="174" opacity="0"><tspan class="t-key" xml:space="preserve">  "region":  </tspan><tspan class="t-str" xml:space="preserve">"in-nanded-1"</tspan><tspan class="t-punc" xml:space="preserve">,</tspan><animate attributeName="opacity" dur="9.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.307;0.327;0.95;1"/></text>
+  <text class="mono" x="40" y="197" opacity="0"><tspan class="t-key" xml:space="preserve">  "live":    </tspan><tspan class="t-str" xml:space="preserve">["health-assistant"]</tspan><tspan class="t-punc" xml:space="preserve">,</tspan><animate attributeName="opacity" dur="9.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.342;0.362;0.95;1"/></text>
+  <text class="mono" x="40" y="220" opacity="0"><tspan class="t-key" xml:space="preserve">  "open_to": </tspan><tspan class="t-str" xml:space="preserve">"backend · infra · ai-systems work"</tspan><tspan class="t-punc" xml:space="preserve">,</tspan><animate attributeName="opacity" dur="9.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.377;0.397;0.95;1"/></text>
+  <text class="mono" x="40" y="243" opacity="0"><tspan class="t-key" xml:space="preserve">  "reach":   </tspan><tspan class="t-str" xml:space="preserve">"portfolio · linkedin · leetcode · email"</tspan><animate attributeName="opacity" dur="9.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.412;0.432;0.95;1"/></text>
+  <text class="mono" x="40" y="266" opacity="0"><tspan class="t-punc" xml:space="preserve">}</tspan><animate attributeName="opacity" dur="9.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.447;0.467;0.95;1"/></text>
+  <rect x="40" y="277" width="8" height="16"
+        fill="#0f766e" opacity="0">
+    <animate attributeName="opacity" dur="9.0s" repeatCount="indefinite"
+             values="0;0;0.9;0;0.9;0;0.9;0"
+             keyTimes="0;0.532;0.562;0.592;0.622;0.652;0.682;1"/>
+  </rect>
+</svg>

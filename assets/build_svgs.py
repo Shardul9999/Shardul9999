@@ -386,8 +386,337 @@ def build_trace(theme: str) -> str:
     return paint("\n".join(parts), c)
 
 
+# ------------------------------------------------------------ shared parts ---
+
+def tw(text: str, size: float) -> float:
+    """Monospace advance width. Close enough to lay out chips and clip masks."""
+    return len(text) * size * 0.6
+
+
+def open_svg(w: int, h: int, label: str, title: str) -> list:
+    return [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" '
+        f'width="{w}" height="{h}" role="img" aria-label="{esc(label)}">',
+        f"  <title>{esc(title)}</title>",
+    ]
+
+
+def frame(w: int, h: int) -> list:
+    return [
+        f'  <rect width="{w}" height="{h}" rx="14" fill="__BG__"/>',
+        f'  <rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="14" '
+        'fill="none" stroke="__LINE__"/>',
+    ]
+
+
+def panel_head(title: str, tail: str, sub: str, w: int) -> list:
+    """The `name.suffix` + subtitle + rule used by every panel."""
+    return [
+        f'  <text class="mono h-title" x="48" y="46" fill="__TEXT__">{esc(title)}'
+        f'<tspan fill="__ACCENT__">{esc(tail)}</tspan></text>',
+        f'  <text class="mono h-sub" x="48" y="68">{esc(sub)}</text>',
+        f'  <path d="M48,86 H{w - 48}" stroke="__LINE__" stroke-width="1"/>',
+    ]
+
+
+HEAD_CSS = """
+  .mono { font-family: __MONO__; }
+  .h-title { font-size: 29px; font-weight: 700; letter-spacing: -0.4px; }
+  .h-sub   { font-size: 12px; fill: __MUTED__; }
+"""
+
+
+def pulse(dur: float, lo=0.3, hi=1.0, begin=0.0) -> str:
+    return (f'<animate attributeName="opacity" values="{lo};{hi};{lo}" dur="{dur}s" '
+            f'begin="{begin}s" repeatCount="indefinite"/>')
+
+
+# ------------------------------------------------------------- fleet board ---
+
+FLEET_W, FLEET_H = 1200, 344
+TILE_W, TILE_H, TILE_GAP = 268, 92, 16
+
+# (name, kind, line1, line2)  kind: live | prod | lab
+FLEET = [
+    ("health-assistant", "live", "90% hit · 0% false hits", "p50 2512ms · 100% cited"),
+    ("codity", "prod", "exactly-once · 10 workers", "58 endpoints · 48 CI tests"),
+    ("readr", "prod", "pdf → grounded answer", "per-user + per-thread isolation"),
+    ("url-shortener", "prod", "40ms → 6.7ms cached", "94% coverage · 22 tests"),
+    ("support-copilot", "prod", "multi-tenant backend", "alembic migrations, versioned"),
+    ("ai-gateway", "prod", "ordered provider chain", "dead provider ≠ dead request"),
+    ("pg-tuning", "lab", "1M synthetic rows", "up to 20,000× via indexes"),
+    ("cloudbeat", "lab", "spotify oauth + 3D", "60fps spline scene"),
+]
+
+KIND_STYLE = {
+    "live": ("__TEAL__", "LIVE", 1.6),
+    "prod": ("__ACCENT__", "SHIPPED", 3.4),
+    "lab": ("__FAINT__", "LAB", 0.0),
+}
+
+FLEET_CSS = """
+  .f-name  { font-size: 12.5px; fill: __TEXT__; }
+  .f-l1    { font-size: 10.5px; fill: __MUTED__; }
+  .f-l2    { font-size: 10px; fill: __FAINT__; }
+  .f-tag   { font-size: 8.5px; letter-spacing: 1.2px; }
+"""
+
+
+def build_fleet(theme: str) -> str:
+    c = THEMES[theme]
+    p = open_svg(FLEET_W, FLEET_H, "Fleet status board for eight services",
+                 "fleet — service status")
+    p.append(f"  <style>{HEAD_CSS}{FLEET_CSS}</style>")
+    p.append("""  <defs>
+    <linearGradient id="sweep" x1="0" x2="1">
+      <stop offset="0" stop-color="__TEAL__" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="__TEAL__" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="__TEAL__" stop-opacity="0"/>
+    </linearGradient>
+  </defs>""")
+    p += frame(FLEET_W, FLEET_H)
+    p += panel_head("fleet", ".status", "eight services · one of them is answering requests "
+                                       "right now", FLEET_W)
+
+    for i, (name, kind, l1, l2) in enumerate(FLEET):
+        col, row = i % 4, i // 4
+        x = 40 + col * (TILE_W + TILE_GAP)
+        y = 104 + row * (TILE_H + TILE_GAP)
+        colour, tag, rate = KIND_STYLE[kind]
+        border = "__TEAL__" if kind == "live" else "__LINE__"
+        lamp = f'<circle cx="{x + 20}" cy="{y + 25}" r="4.5" fill="{colour}">'
+        lamp += (pulse(rate, 0.25, 1.0, begin=i * 0.25) if rate else "") + "</circle>"
+        p.append(f"""  <g>
+    <rect x="{x}" y="{y}" width="{TILE_W}" height="{TILE_H}" rx="10"
+          fill="__PANEL__" stroke="{border}"/>
+    {lamp}
+    <text class="mono f-name" x="{x + 34}" y="{y + 29}">{esc(name)}</text>
+    <text class="mono f-tag" x="{x + TILE_W - 14}" y="{y + 28}" text-anchor="end"
+          fill="{colour}">{tag}</text>
+    <text class="mono f-l1" x="{x + 20}" y="{y + 57}">{esc(l1)}</text>
+    <text class="mono f-l2" x="{x + 20}" y="{y + 76}">{esc(l2)}</text>
+  </g>""")
+
+    # a scanline drifting across the board, the way a console polls its fleet
+    p.append(f"""  <rect x="0" y="96" width="240" height="{FLEET_H - 120}" fill="url(#sweep)">
+    <animate attributeName="x" values="-240;{FLEET_W}" dur="6s" repeatCount="indefinite"/>
+  </rect>""")
+    p.append("</svg>")
+    return paint("\n".join(p), c)
+
+
+# ---------------------------------------------------------- decision spine ---
+
+DEC_W, DEC_H = 1200, 212
+DEC_CYCLE = 5.0
+DECISIONS = [
+    ("ADR-001", "refuse, don't guess", "0% false hits"),
+    ("ADR-002", "postgres is the queue", "one less system"),
+    ("ADR-003", "cache-aside only", "6× faster reads"),
+    ("ADR-004", "fail over, don't retry", "44% failover, held"),
+    ("ADR-005", "read the plan first", "up to 20,000×"),
+]
+
+DEC_CSS = """
+  .d-id    { font-size: 9.5px; letter-spacing: 1.4px; fill: __FAINT__; }
+  .d-title { font-size: 12px; fill: __TEXT__; }
+  .d-out   { font-size: 10px; fill: __TEAL__; }
+  .spine   { stroke: __LINE__; stroke-width: 1.5; fill: none; }
+"""
+
+
+def build_decisions(theme: str) -> str:
+    c = THEMES[theme]
+    p = open_svg(DEC_W, DEC_H, "Five architecture decision records on a timeline",
+                 "decisions — the calls and what they cost")
+    p.append(f"  <style>{HEAD_CSS}{DEC_CSS}</style>")
+    p += frame(DEC_W, DEC_H)
+    p += panel_head("decisions", ".log", "five calls, and the bill each one came with", DEC_W)
+
+    x0, x1, spine_y = 70, 1130, 132
+    p.append(f'  <path id="spine" class="spine" d="M{x0},{spine_y} H{x1}"/>')
+
+    xs = [130 + i * 235 for i in range(len(DECISIONS))]
+    for i, ((adr, title, outcome), x) in enumerate(zip(DECISIONS, xs)):
+        at = (x - x0) / (x1 - x0) * DEC_CYCLE      # when the pulse reaches this node
+        p.append(f"""  <g>
+    <text class="mono d-id" x="{x}" y="{spine_y - 26}" text-anchor="middle">{adr}</text>
+    <circle cx="{x}" cy="{spine_y}" r="16" fill="none" stroke="__TEAL__" opacity="0">
+      <animate attributeName="r" values="9;19" dur="0.7s" begin="{at:.2f}s"
+               repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0" dur="0.7s" begin="{at:.2f}s"
+               repeatCount="indefinite"/>
+    </circle>
+    <circle cx="{x}" cy="{spine_y}" r="7" fill="__BG__" stroke="__ACCENT__" stroke-width="2"/>
+    <text class="mono d-title" x="{x}" y="{spine_y + 34}" text-anchor="middle">{esc(title)}</text>
+    <text class="mono d-out" x="{x}" y="{spine_y + 52}" text-anchor="middle">{esc(outcome)}</text>
+  </g>""")
+
+    # the pulse that walks the spine and sets each node off as it passes
+    p.append(f"""  <circle r="4" fill="__TEAL__" filter="url(#dglow)">
+    <animateMotion dur="{DEC_CYCLE}s" repeatCount="indefinite"><mpath href="#spine"/></animateMotion>
+  </circle>""")
+    p.insert(2, """  <defs><filter id="dglow" x="-300%" y="-300%" width="700%" height="700%">
+    <feGaussianBlur stdDeviation="2.6" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter></defs>""")
+    p.append("</svg>")
+    return paint("\n".join(p), c)
+
+
+# ----------------------------------------------------------------- runtime ---
+
+STACK_W = 1200
+BAND_H, BAND_GAP, BAND_X = 46, 8, 178
+
+LAYERS = [
+    ("CLIENT", ["react 18", "typescript", "vite", "next.js", "clerk"]),
+    ("EDGE", ["fastapi", "jwt + rbac", "sliding-window limits", "cors"]),
+    ("SERVICE", ["sqlalchemy", "alembic", "asyncio", "asyncpg", "pydantic"]),
+    ("DATA", ["postgresql", "pgvector", "redis", "neon", "upstash", "supabase"]),
+    ("MODEL", ["groq", "gemini", "langgraph", "langchain", "hnsw + cosine"]),
+    ("SHIP", ["docker", "github actions", "render", "vercel", "gcp", "linux", "pytest"]),
+]
+STACK_CYCLE = 7.0
+STACK_H = 92 + len(LAYERS) * (BAND_H + BAND_GAP) + 16
+
+STACK_CSS = """
+  .s-layer { font-size: 10px; letter-spacing: 1.6px; fill: __MUTED__; }
+  .s-chip  { font-size: 11px; fill: __TEXT__; }
+"""
+
+
+def build_stack(theme: str) -> str:
+    c = THEMES[theme]
+    p = open_svg(STACK_W, STACK_H, "The runtime stack, layer by layer",
+                 "runtime — what I actually reach for")
+    p.append(f"  <style>{HEAD_CSS}{STACK_CSS}</style>")
+    p += frame(STACK_W, STACK_H)
+    p += panel_head("runtime", ".stack", "top to bottom, the layers I actually reach for",
+                    STACK_W)
+
+    for i, (label, chips) in enumerate(LAYERS):
+        y = 100 + i * (BAND_H + BAND_GAP)
+        at = i * (STACK_CYCLE / len(LAYERS))       # the cascade down the stack
+        p.append(f'  <rect x="48" y="{y}" width="{STACK_W - 96}" height="{BAND_H}" rx="9" '
+                 'fill="__PANEL2__" stroke="__LINE__"/>')
+        p.append(f'  <rect x="48" y="{y}" width="3.5" height="{BAND_H}" rx="1.75" '
+                 f'fill="__ACCENT__" opacity="0.25">{pulse(STACK_CYCLE, 0.25, 1, at)}</rect>')
+        p.append(f'  <text class="mono s-layer" x="70" y="{y + BAND_H / 2 + 4:.0f}">{label}</text>')
+
+        cx = BAND_X
+        for chip in chips:
+            w = tw(chip, 11) + 22
+            p.append(f"""  <g>
+    <rect x="{cx:.0f}" y="{y + 11}" width="{w:.0f}" height="24" rx="12"
+          fill="__PANEL__" stroke="__LINE__" opacity="0.9"/>
+    <text class="mono s-chip" x="{cx + w / 2:.0f}" y="{y + 27}" text-anchor="middle">{esc(chip)}</text>
+  </g>""")
+            cx += w + 8
+
+    p.append("</svg>")
+    return paint("\n".join(p), c)
+
+
+# ---------------------------------------------------------------- terminal ---
+
+TERM_W, TERM_H = 1200, 318
+TERM_CYCLE = 9.0
+CMD = "curl -s https://shardul.sys/health | jq"
+# (indent, [(text, colour class)]) -- rendered as one line each
+RESPONSE = [
+    [("{", "t-punc")],
+    [('  "status":  ', "t-key"), ('"up"', "t-str"), (",", "t-punc")],
+    [('  "region":  ', "t-key"), ('"in-nanded-1"', "t-str"), (",", "t-punc")],
+    [('  "live":    ', "t-key"), ('["health-assistant"]', "t-str"), (",", "t-punc")],
+    [('  "open_to": ', "t-key"), ('"backend · infra · ai-systems work"', "t-str"), (",", "t-punc")],
+    [('  "reach":   ', "t-key"), ('"portfolio · linkedin · leetcode · email"', "t-str")],
+    [("}", "t-punc")],
+]
+
+TERM_CSS = """
+  .t-bar   { font-size: 11px; fill: __MUTED__; }
+  .t-cmd   { font-size: 13px; fill: __TEXT__; }
+  .t-key   { font-size: 13px; fill: __ACCENT__; }
+  .t-str   { font-size: 13px; fill: __TEAL__; }
+  .t-punc  { font-size: 13px; fill: __MUTED__; }
+"""
+
+
+def build_health(theme: str) -> str:
+    c = THEMES[theme]
+    p = open_svg(TERM_W, TERM_H, "A terminal running a health check against shardul.sys",
+                 "health — still up")
+    p.append(f"  <style>{HEAD_CSS}{TERM_CSS}</style>")
+    p += frame(TERM_W, TERM_H)
+
+    # window chrome
+    p.append('  <path d="M0,40 H1200" stroke="__LINE__" stroke-width="1"/>')
+    for i, col in enumerate(("#ff5f57", "#febc2e", "#28c840")):
+        p.append(f'  <circle cx="{30 + i * 20}" cy="20" r="6" fill="{col}" opacity="0.85"/>')
+    p.append('  <text class="mono t-bar" x="600" y="24" text-anchor="middle">'
+             'shardul.sys — health check</text>')
+
+    type_dur = 1.6
+    x, y = 40, 82
+    prompt_w = tw("$ ", 13)
+    cmd_w = tw(CMD, 13)
+
+    p.append(f'  <text class="mono t-str" x="{x}" y="{y}">$</text>')
+    # typewriter: a clip rect widens across the command text
+    p.append(f"""  <defs><clipPath id="typing">
+    <rect x="{x + prompt_w}" y="{y - 14}" width="0" height="20">
+      <animate attributeName="width" dur="{TERM_CYCLE}s" repeatCount="indefinite"
+               values="0;0;{cmd_w:.0f};{cmd_w:.0f};0"
+               keyTimes="0;0.02;{(0.02 + type_dur / TERM_CYCLE):.3f};0.95;1"/>
+    </rect>
+  </clipPath></defs>""")
+    p.append(f'  <g clip-path="url(#typing)"><text class="mono t-cmd" x="{x + prompt_w:.0f}" '
+             f'y="{y}">{esc(CMD)}</text></g>')
+    # the caret rides the end of the typed text, then parks
+    p.append(f"""  <rect y="{y - 12}" width="8" height="16" fill="__TEAL__" opacity="0.85">
+    <animate attributeName="x" dur="{TERM_CYCLE}s" repeatCount="indefinite"
+             values="{x + prompt_w:.0f};{x + prompt_w:.0f};{x + prompt_w + cmd_w:.0f};{x + prompt_w + cmd_w:.0f}"
+             keyTimes="0;0.02;{(0.02 + type_dur / TERM_CYCLE):.3f};1"/>
+    <animate attributeName="opacity" values="0.85;0.85;0;0" dur="{TERM_CYCLE}s"
+             keyTimes="0;{(0.06 + type_dur / TERM_CYCLE):.3f};{(0.08 + type_dur / TERM_CYCLE):.3f};1"
+             repeatCount="indefinite"/>
+  </rect>""")
+
+    # response lines land one after another, the way real output does
+    first = 0.02 + (type_dur + 0.35) / TERM_CYCLE
+    for i, segments in enumerate(RESPONSE):
+        ly = 128 + i * 23
+        at = first + i * 0.035
+        spans = "".join(f'<tspan class="{cls}" xml:space="preserve">{esc(t)}</tspan>'
+                        for t, cls in segments)
+        p.append(f'  <text class="mono" x="{x}" y="{ly}" opacity="0">{spans}'
+                 f'<animate attributeName="opacity" dur="{TERM_CYCLE}s" repeatCount="indefinite" '
+                 f'values="0;0;1;1;0" keyTimes="0;{at:.3f};{at + 0.02:.3f};0.95;1"/></text>')
+
+    # and a caret waiting for the next command
+    done = first + len(RESPONSE) * 0.035 + 0.05
+    p.append(f"""  <rect x="{x}" y="{128 + len(RESPONSE) * 23 - 12}" width="8" height="16"
+        fill="__TEAL__" opacity="0">
+    <animate attributeName="opacity" dur="{TERM_CYCLE}s" repeatCount="indefinite"
+             values="0;0;0.9;0;0.9;0;0.9;0"
+             keyTimes="0;{done:.3f};{done + 0.03:.3f};{done + 0.06:.3f};{done + 0.09:.3f};{done + 0.12:.3f};{done + 0.15:.3f};1"/>
+  </rect>""")
+    p.append("</svg>")
+    return paint("\n".join(p), c)
+
+
+BUILDERS = {
+    "system": build_topology,
+    "trace": build_trace,
+    "fleet": build_fleet,
+    "decisions": build_decisions,
+    "stack": build_stack,
+    "health": build_health,
+}
+
 if __name__ == "__main__":
     for theme in THEMES:
-        (OUT / f"system-{theme}.svg").write_text(build_topology(theme), encoding="utf-8")
-        (OUT / f"trace-{theme}.svg").write_text(build_trace(theme), encoding="utf-8")
-        print(f"wrote system-{theme}.svg, trace-{theme}.svg")
+        for name, fn in BUILDERS.items():
+            (OUT / f"{name}-{theme}.svg").write_text(fn(theme), encoding="utf-8")
+        print(f"wrote {len(BUILDERS)} svgs for {theme}")

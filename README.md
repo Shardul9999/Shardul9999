@@ -62,14 +62,20 @@ Measured across 50 documents / 168 chunks — the full run is in [`docs/BENCHMAR
 
 ## `GET /services`
 
-The stuff I've actually put into production, and what each one is worth.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/fleet-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/fleet-light.svg">
+  <img alt="Fleet status board: eight service tiles with status lamps — health-assistant live, five shipped, two labs" src="assets/fleet-dark.svg" width="100%">
+</picture>
+
+Same eight, with the links and the detail:
 
 | service | responsibility | stack | measured |
 |---|---|---|---|
 | **[`svc/health-assistant`](https://github.com/Shardul9999/Health_Assistant)** `● live` | grounded RAG that cites every claim and refuses below the floor | React · FastAPI · pgvector · Neon · Upstash | 90% hit rate · 0% false hits · 100% cited · p50 2512ms |
 | **[`svc/codity`](https://github.com/Shardul9999/Distributed-Job-Scheduler)** | distributed job scheduler — Postgres *is* the broker | FastAPI · PG16 · Next.js · Docker | exactly-once across 10 workers × 500 jobs · 58 endpoints · 48 CI tests |
 | **[`svc/readr`](https://github.com/Shardul9999/ai-pdf-chatbot-langchain)** | RAG over PDFs, isolated per user and per thread | Next.js · LangGraph · pgvector · Groq | ~200ms parse · ~1.3s embed · ~500ms retrieve |
-| **[`svc/url-shortener`](https://github.com/Shardul9999/url-shortener)** | redirects + analytics, SSRF-hardened · [`live docs`](https://url-shortener-672q.onrender.com/docs) | FastAPI · Redis · Docker | 40ms → 6.7ms · 22 tests at 94% coverage |
+| **[`svc/url-shortener`](https://github.com/Shardul9999/url-shortener)** | redirects + analytics, SSRF-hardened | FastAPI · Redis · Docker | 40ms → 6.7ms · 22 tests at 94% coverage |
 | **[`svc/support-copilot`](https://github.com/Shardul9999/fastapi-ai-support-copilot)** | multi-tenant support backend | FastAPI · SQLAlchemy · Alembic · pgvector | tenant-scoped, migrations under version control |
 | **[`svc/ai-gateway`](https://github.com/Shardul9999/AI-Fallback-Gateway)** | multi-provider LLM failover | Python · FastAPI | a dead provider ≠ a dead request |
 | **[`lab/pg-tuning`](https://github.com/Shardul9999/postgresql_performance_tuining)** | 1M synthetic rows, read the plan before the code | PostgreSQL · B-Tree · GIN | up to 20,000× on the worst offenders |
@@ -91,7 +97,13 @@ Two paths I measured rather than guessed at. Note the last row of the first trac
 
 ## `GET /decisions`
 
-Anyone can list tools. These are the calls I made and what they cost me.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/decisions-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/decisions-light.svg">
+  <img alt="Decision log timeline: five ADRs on a spine — refuse don't guess, postgres is the queue, cache-aside only, fail over don't retry, read the plan first" src="assets/decisions-dark.svg" width="100%">
+</picture>
+
+Anyone can list tools. These are the calls I made and what they cost me — open one:
 
 <details>
 <summary><b>ADR-001</b> — The assistant refuses rather than guesses.</summary>
@@ -162,33 +174,11 @@ Anyone can list tools. These are the calls I made and what they cost me.
 
 ## `GET /runtime`
 
-```toml
-# shardul.sys/runtime.toml
-
-[languages]
-fluent  = ["python", "sql"]
-working = ["java", "typescript"]
-
-[backend]
-core     = ["fastapi", "sqlalchemy", "alembic", "asyncio", "asyncpg"]
-storage  = ["postgresql", "redis", "pgvector", "neon", "upstash", "supabase"]
-patterns = ["cache-aside", "sliding-window rate limits", "SKIP LOCKED queues",
-            "leader election", "fencing tokens", "dead-letter queues"]
-
-[frontend]
-enough_to_ship = ["react 18", "typescript", "vite", "next.js", "clerk"]
-
-[ai]
-orchestration = ["langgraph", "langchain"]
-inference     = ["groq", "gemini"]
-retrieval     = ["hnsw + cosine top-k", "chunking + embeddings", "similarity floors"]
-guardrails    = ["cite or refuse", "short-circuit before the model",
-                 "user messages are data, never instructions"]
-
-[ops]
-ship = ["docker", "github actions", "render", "vercel", "gcp", "linux"]
-test = ["pytest", "real postgres in CI — not sqlite", "benchmarks I can rerun"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/stack-light.svg">
+  <img alt="Runtime stack in six layers: client, edge, service, data, model, ship — each a row of named tools" src="assets/stack-dark.svg" width="100%">
+</picture>
 
 ---
 
@@ -215,18 +205,11 @@ test = ["pytest", "real postgres in CI — not sqlite", "benchmarks I can rerun"
 
 ## `GET /health`
 
-```json
-{
-  "status": "up",
-  "region": "in-nanded-1",
-  "links": {
-    "portfolio": "shardul-portfolio-iota.vercel.app",
-    "linkedin":  "in/ShardulHingane",
-    "leetcode":  "u/shardul_16",
-    "email":     "shardulhingane16@gmail.com"
-  }
-}
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/health-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/health-light.svg">
+  <img alt="Terminal running curl against shardul.sys/health, returning status up, region in-nanded-1, live health-assistant, and contact links" src="assets/health-dark.svg" width="100%">
+</picture>
 
 **[portfolio](https://shardul-portfolio-iota.vercel.app/)** · **[linkedin](https://linkedin.com/in/ShardulHingane)** · **[leetcode](https://leetcode.com/u/shardul_16/)** · **[email](mailto:shardulhingane16@gmail.com)**
 

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 212" width="1200" height="212" role="img" aria-label="Five architecture decision records on a timeline">
+  <title>decisions — the calls and what they cost</title>
+  <defs><filter id="dglow" x="-300%" y="-300%" width="700%" height="700%">
+    <feGaussianBlur stdDeviation="2.6" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter></defs>
+  <style>
+  .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+  .h-title { font-size: 29px; font-weight: 700; letter-spacing: -0.4px; }
+  .h-sub   { font-size: 12px; fill: #5b6672; }
+
+  .d-id    { font-size: 9.5px; letter-spacing: 1.4px; fill: #98a3b0; }
+  .d-title { font-size: 12px; fill: #161b22; }
+  .d-out   { font-size: 10px; fill: #0f766e; }
+  .spine   { stroke: #d5dce4; stroke-width: 1.5; fill: none; }
+</style>
+  <rect width="1200" height="212" rx="14" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="1199" height="211" rx="14" fill="none" stroke="#d5dce4"/>
+  <text class="mono h-title" x="48" y="46" fill="#161b22">decisions<tspan fill="#c0392b">.log</tspan></text>
+  <text class="mono h-sub" x="48" y="68">five calls, and the bill each one came with</text>
+  <path d="M48,86 H1152" stroke="#d5dce4" stroke-width="1"/>
+  <path id="spine" class="spine" d="M70,132 H1130"/>
+  <g>
+    <text class="mono d-id" x="130" y="106" text-anchor="middle">ADR-001</text>
+    <circle cx="130" cy="132" r="16" fill="none" stroke="#0f766e" opacity="0">
+      <animate attributeName="r" values="9;19" dur="0.7s" begin="0.28s"
+               repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0" dur="0.7s" begin="0.28s"
+               repeatCount="indefinite"/>
+    </circle>
+    <circle cx="130" cy="132" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+    <text class="mono d-title" x="130" y="166" text-anchor="middle">refuse, don't guess</text>
+    <text class="mono d-out" x="130" y="184" text-anchor="middle">0% false hits</text>
+  </g>
+  <g>
+    <text class="mono d-id" x="365" y="106" text-anchor="middle">ADR-002</text>
+    <circle cx="365" cy="132" r="16" fill="none" stroke="#0f766e" opacity="0">
+      <animate attributeName="r" values="9;19" dur="0.7s" begin="1.39s"
+               repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0" dur="0.7s" begin="1.39s"
+               repeatCount="indefinite"/>
+    </circle>
+    <circle cx="365" cy="132" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+    <text class="mono d-title" x="365" y="166" text-anchor="middle">postgres is the queue</text>
+    <text class="mono d-out" x="365" y="184" text-anchor="middle">one less system</text>
+  </g>
+  <g>
+    <text class="mono d-id" x="600" y="106" text-anchor="middle">ADR-003</text>
+    <circle cx="600" cy="132" r="16" fill="none" stroke="#0f766e" opacity="0">
+      <animate attributeName="r" values="9;19" dur="0.7s" begin="2.50s"
+               repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0" dur="0.7s" begin="2.50s"
+               repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="132" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+    <text class="mono d-title" x="600" y="166" text-anchor="middle">cache-aside only</text>
+    <text class="mono d-out" x="600" y="184" text-anchor="middle">6× faster reads</text>
+  </g>
+  <g>
+    <text class="mono d-id" x="835" y="106" text-anchor="middle">ADR-004</text>
+    <circle cx="835" cy="132" r="16" fill="none" stroke="#0f766e" opacity="0">
+      <animate attributeName="r" values="9;19" dur="0.7s" begin="3.61s"
+               repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0" dur="0.7s" begin="3.61s"
+               repeatCount="indefinite"/>
+    </circle>
+    <circle cx="835" cy="132" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+    <text class="mono d-title" x="835" y="166" text-anchor="middle">fail over, don't retry</text>
+    <text class="mono d-out" x="835" y="184" text-anchor="middle">44% failover, held</text>
+  </g>
+  <g>
+    <text class="mono d-id" x="1070" y="106" text-anchor="middle">ADR-005</text>
+    <circle cx="1070" cy="132" r="16" fill="none" stroke="#0f766e" opacity="0">
+      <animate attributeName="r" values="9;19" dur="0.7s" begin="4.72s"
+               repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0" dur="0.7s" begin="4.72s"
+               repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1070" cy="132" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+    <text class="mono d-title" x="1070" y="166" text-anchor="middle">read the plan first</text>
+    <text class="mono d-out" x="1070" y="184" text-anchor="middle">up to 20,000×</text>
+  </g>
+  <circle r="4" fill="#0f766e" filter="url(#dglow)">
+    <animateMotion dur="5.0s" repeatCount="indefinite"><mpath href="#spine"/></animateMotion>
+  </circle>
+</svg>
