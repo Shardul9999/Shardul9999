@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" role="img" aria-label="Request traces through two production paths">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" role="img" aria-label="Request traces through two production paths">
   <title>trace — measured production paths</title>
   <style>
   .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
@@ -13,66 +13,73 @@
   .note    { font-size: 11px; fill: #ff6b4a; }
 
   </style>
-  <rect width="1200" height="440" rx="14" fill="#0b0f14"/>
-  <rect x="0.5" y="0.5" width="1199" height="439" rx="14" fill="none" stroke="#2b333d"/>
+  <rect width="1200" height="480" rx="14" fill="#0b0f14"/>
+  <rect x="0.5" y="0.5" width="1199" height="479" rx="14" fill="none" stroke="#2b333d"/>
   <text class="mono t-title" x="48" y="46" fill="#e6edf3">trace<tspan fill="#ff6b4a">.</tspan></text>
   <text class="mono t-sub" x="48" y="68">two paths I actually measured — not estimates, not vibes</text>
   <path d="M48,86 H1152" stroke="#2b333d" stroke-width="1"/>
-  <text class="mono p-name" x="48" y="102">GET /{slug}</text>
-  <text class="mono p-hint" x="48" y="118">url-shortener · redirect hot path</text>
-  <path d="M300.0,106 V198" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="300.0" y="213" text-anchor="middle">0</text>
-  <path d="M486.7,106 V198" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="486.7" y="213" text-anchor="middle">10</text>
-  <path d="M673.3,106 V198" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="673.3" y="213" text-anchor="middle">20</text>
-  <path d="M860.0,106 V198" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="860.0" y="213" text-anchor="middle">30</text>
-  <path d="M1046.7,106 V198" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="1046.7" y="213" text-anchor="middle">40ms</text>
-  <text class="mono s-name" x="48" y="143">postgres lookup</text>
-  <text class="mono s-hint" x="164" y="143">cold</text>
+  <text class="mono p-name" x="48" y="102">POST /api/chat</text>
+  <text class="mono p-hint" x="48" y="118">health-assistant · p50, measured · 50 docs / 168 chunks</text>
+  <path d="M300.0,106 V294" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="300.0" y="309" text-anchor="middle">0</text>
+  <path d="M455.6,106 V294" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="455.6" y="309" text-anchor="middle">500</text>
+  <path d="M611.1,106 V294" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="611.1" y="309" text-anchor="middle">1000</text>
+  <path d="M766.7,106 V294" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="766.7" y="309" text-anchor="middle">1500</text>
+  <path d="M922.2,106 V294" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="922.2" y="309" text-anchor="middle">2000</text>
+  <path d="M1077.8,106 V294" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="1077.8" y="309" text-anchor="middle">2500ms</text>
+  <text class="mono s-name" x="48" y="143">embed.gemini</text>
+  <text class="mono s-hint" x="142" y="143">768-d</text>
   <rect x="300" y="128" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
-  <rect x="300.0" y="128" width="0" height="21" rx="5" fill="#7d8590" opacity="0.55"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;746.7;746.7;0" keyTimes="0;0.0357;0.1071;0.93;1"/></rect>
-  <text class="mono dur" x="1058.7" y="143" opacity="0">40ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1071;0.1286;0.93;1"/></text>
-  <text class="mono s-name" x="48" y="175">redis cache-aside</text>
-  <text class="mono s-hint" x="178" y="175">hit</text>
+  <rect x="300.0" y="128" width="0" height="21" rx="5" fill="#ff6b4a" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;222.4;222.4;0" keyTimes="0;0.0429;0.1214;0.93;1"/></rect>
+  <text class="mono dur" x="534.4" y="143" opacity="0">714.7ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1214;0.1429;0.93;1"/></text>
+  <text class="mono s-name" x="48" y="175">retrieve.pgvector</text>
+  <text class="mono s-hint" x="178" y="175">hnsw · top-5</text>
   <rect x="300" y="160" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
-  <rect x="300.0" y="160" width="0" height="21" rx="5" fill="#39d3bb" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;125.1;125.1;0" keyTimes="0;0.0786;0.1500;0.93;1"/></rect>
-  <text class="mono dur" x="437.1" y="175" opacity="0">6.7ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1500;0.1714;0.93;1"/></text>
-  <path d="M300,198 H1140" stroke="#2b333d" stroke-width="1"/>
-  <text class="mono p-name" x="48" y="248">POST /ingest → POST /chat</text>
-  <text class="mono p-hint" x="48" y="264">readr · pdf becomes an answer</text>
-  <path d="M300.0,252 V408" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="300.0" y="423" text-anchor="middle">0</text>
-  <path d="M461.5,252 V408" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="461.5" y="423" text-anchor="middle">500</text>
-  <path d="M623.1,252 V408" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="623.1" y="423" text-anchor="middle">1000</text>
-  <path d="M784.6,252 V408" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="784.6" y="423" text-anchor="middle">1500</text>
-  <path d="M946.2,252 V408" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="946.2" y="423" text-anchor="middle">2000</text>
-  <path d="M1107.7,252 V408" stroke="#161c24" stroke-width="1"/>
-  <text class="mono tick" x="1107.7" y="423" text-anchor="middle">2500ms</text>
-  <text class="mono s-name" x="48" y="289">parse.pdf</text>
-  <rect x="300" y="274" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
-  <rect x="300.0" y="274" width="0" height="21" rx="5" fill="#ff6b4a" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;64.6;64.6;0" keyTimes="0;0.1643;0.2143;0.93;1"/></rect>
-  <text class="mono dur" x="376.6" y="289" opacity="0">200ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.2143;0.2357;0.93;1"/></text>
-  <text class="mono s-name" x="48" y="321">embed.gemini</text>
-  <text class="mono s-hint" x="142" y="321">1536-d</text>
-  <rect x="300" y="306" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
-  <rect x="364.6" y="306" width="0" height="21" rx="5" fill="#ff6b4a" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;420.0;420.0;0" keyTimes="0;0.2143;0.2929;0.93;1"/></rect>
-  <text class="mono dur" x="796.6" y="321" opacity="0">1300ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.2929;0.3143;0.93;1"/></text>
-  <text class="mono s-name" x="48" y="353">vector.search</text>
-  <text class="mono s-hint" x="149" y="353">pgvector</text>
-  <rect x="300" y="338" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
-  <rect x="784.6" y="338" width="0" height="21" rx="5" fill="#39d3bb" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;161.5;161.5;0" keyTimes="0;0.2929;0.3500;0.93;1"/></rect>
-  <text class="mono dur" x="958.2" y="353" opacity="0">500ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.3500;0.3714;0.93;1"/></text>
-  <text class="mono s-name" x="48" y="385">llm.groq.stream</text>
-  <rect x="300" y="370" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
-  <rect x="946.2" y="370" width="0" height="21" rx="5" fill="#39d3bb" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;64.6;64.6;0" keyTimes="0;0.3500;0.4000;0.93;1"/></rect>
-  <text class="mono dur" x="1022.8" y="385" fill="#7d8590" opacity="0">→ first token · SSE<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.4000;0.4214;0.93;1"/></text>
-  <path d="M300,408 H1140" stroke="#2b333d" stroke-width="1"/>
-  <text class="mono note" x="510" y="175" opacity="0">← 6× faster — and the cache is never the source of truth<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1500;0.1786;0.93;1"/></text>
+  <rect x="522.4" y="160" width="0" height="21" rx="5" fill="#39d3bb" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;14.4;14.4;0" keyTimes="0;0.1214;0.1643;0.93;1"/></rect>
+  <text class="mono dur" x="548.7" y="175" opacity="0">46.2ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1643;0.1857;0.93;1"/></text>
+  <text class="mono s-name" x="48" y="207">llm.first_token</text>
+  <text class="mono s-hint" x="164" y="207">groq → gemini</text>
+  <rect x="300" y="192" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
+  <rect x="536.7" y="192" width="0" height="21" rx="5" fill="#ff6b4a" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;114.6;114.6;0" keyTimes="0;0.1643;0.2214;0.93;1"/></rect>
+  <text class="mono dur" x="663.3" y="207" opacity="0">@1129.3ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.2214;0.2429;0.93;1"/></text>
+  <text class="mono s-name" x="48" y="239">answer.complete</text>
+  <text class="mono s-hint" x="164" y="239">4.8 citations</text>
+  <rect x="300" y="224" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
+  <rect x="651.3" y="224" width="0" height="21" rx="5" fill="#ff6b4a" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;430.2;430.2;0" keyTimes="0;0.2214;0.3000;0.93;1"/></rect>
+  <text class="mono dur" x="1093.6" y="239" opacity="0">@2512.2ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.3000;0.3214;0.93;1"/></text>
+  <text class="mono s-name" x="48" y="271">red_flag.short_circuit</text>
+  <rect x="300" y="256" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
+  <rect x="300.0" y="256" width="0" height="21" rx="5" fill="#39d3bb" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;3.0;3.0;0" keyTimes="0;0.3357;0.3714;0.93;1"/></rect>
+  <text class="mono dur" x="315.0" y="271" opacity="0">0.1ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.3714;0.3929;0.93;1"/></text>
+  <path d="M300,294 H1140" stroke="#2b333d" stroke-width="1"/>
+  <text class="mono p-name" x="48" y="348">GET /{slug}</text>
+  <text class="mono p-hint" x="48" y="364">url-shortener · redirect hot path</text>
+  <path d="M300.0,352 V444" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="300.0" y="459" text-anchor="middle">0</text>
+  <path d="M486.7,352 V444" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="486.7" y="459" text-anchor="middle">10</text>
+  <path d="M673.3,352 V444" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="673.3" y="459" text-anchor="middle">20</text>
+  <path d="M860.0,352 V444" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="860.0" y="459" text-anchor="middle">30</text>
+  <path d="M1046.7,352 V444" stroke="#161c24" stroke-width="1"/>
+  <text class="mono tick" x="1046.7" y="459" text-anchor="middle">40ms</text>
+  <text class="mono s-name" x="48" y="389">postgres lookup</text>
+  <text class="mono s-hint" x="164" y="389">cold</text>
+  <rect x="300" y="374" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
+  <rect x="300.0" y="374" width="0" height="21" rx="5" fill="#7d8590" opacity="0.55"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;746.7;746.7;0" keyTimes="0;0.4143;0.4857;0.93;1"/></rect>
+  <text class="mono dur" x="1058.7" y="389" opacity="0">40ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.4857;0.5071;0.93;1"/></text>
+  <text class="mono s-name" x="48" y="421">redis cache-aside</text>
+  <text class="mono s-hint" x="178" y="421">hit</text>
+  <rect x="300" y="406" width="840" height="21" rx="5" fill="#11161d" opacity="0.55"/>
+  <rect x="300.0" y="406" width="0" height="21" rx="5" fill="#39d3bb" opacity="0.92"><animate attributeName="width" dur="7.0s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.6 0 1 1" values="0;0;125.1;125.1;0" keyTimes="0;0.4571;0.5214;0.93;1"/></rect>
+  <text class="mono dur" x="437.1" y="421" opacity="0">6.7ms<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.5214;0.5429;0.93;1"/></text>
+  <path d="M300,444 H1140" stroke="#2b333d" stroke-width="1"/>
+  <text class="mono note" x="365" y="271" opacity="0">← the safety path short-circuits before retrieval, before the model<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.3714;0.4000;0.93;1"/></text>
+  <text class="mono note" x="505" y="421" opacity="0">← 6× faster, and the cache is never the source of truth<animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.5214;0.5500;0.93;1"/></text>
 </svg>

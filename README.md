@@ -3,7 +3,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/system-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/system-light.svg">
-  <img alt="shardul.sys — service topology: client → edge/gateway → services → postgres, redis, pgvector" src="assets/system-dark.svg" width="100%">
+  <img alt="shardul.sys — service topology: client → edge/gateway → four services, one of them live → redis, postgres, pgvector" src="assets/system-dark.svg" width="100%">
 </picture>
 
 ```http
@@ -25,12 +25,38 @@ content-type: application/json
   "thesis": [
     "a queue that loses jobs was never a queue",
     "a cache that lies is worse than no cache at all",
-    "an LLM call with no fallback is a single point of failure"
+    "an LLM call with no fallback is a single point of failure",
+    "a model that cannot cite its source should say so instead"
   ],
 
   "status":  "shipping · open to backend / AI-infra work"
 }
 ```
+
+---
+
+## `GET /live` &nbsp;`200 OK`
+
+**[health-assistant](https://github.com/Shardul9999/Health_Assistant)** — a grounded RAG symptom-checker that refuses to guess. Deployed and answering requests right now:
+
+### **[→ open the app](https://health-assistant-lake.vercel.app)** &nbsp;·&nbsp; [api `/health`](https://health-assistant-api-3aoy.onrender.com/health)
+
+It answers health questions from verified sources only — WHO, NHS, NIH, CDC — and every answer is traceable to the chunk it came from. It never diagnoses. Serious symptoms short-circuit the pipeline *before* retrieval and *before* the model, and when nothing clears the similarity floor it says so instead of answering from model knowledge.
+
+`Vite + React 18 + TS on Vercel` · `FastAPI in Docker on Render` · `Postgres 16 + pgvector on Neon` · `Redis on Upstash` · `Clerk auth` · `Groq primary, Gemini fallback`
+
+Measured across 50 documents / 168 chunks — the full run is in [`docs/BENCHMARKS.md`](https://github.com/Shardul9999/Health_Assistant/blob/main/docs/BENCHMARKS.md):
+
+| | |
+|---|---|
+| retrieval hit rate, in-corpus | **90%** — 27/30 |
+| false hits, out-of-corpus | **0%** — 0/8, with a 0.172 similarity margin |
+| answers carrying citations | **100%** — 27/27, and 129/129 citations valid |
+| red-flag detection | **100%** — 12/12, none of which reached the model |
+| end-to-end p50 / p95 | **2512ms / 3981ms** |
+
+> [!NOTE]
+> The API sleeps after 15 minutes idle on Render's free tier. Open the `/health` link first — a cold start takes 30–60s — then the app.
 
 ---
 
@@ -40,6 +66,7 @@ The stuff I've actually put into production, and what each one is worth.
 
 | service | responsibility | stack | measured |
 |---|---|---|---|
+| **[`svc/health-assistant`](https://github.com/Shardul9999/Health_Assistant)** `● live` | grounded RAG that cites every claim and refuses below the floor | React · FastAPI · pgvector · Neon · Upstash | 90% hit rate · 0% false hits · 100% cited · p50 2512ms |
 | **[`svc/codity`](https://github.com/Shardul9999/Distributed-Job-Scheduler)** | distributed job scheduler — Postgres *is* the broker | FastAPI · PG16 · Next.js · Docker | exactly-once across 10 workers × 500 jobs · 58 endpoints · 48 CI tests |
 | **[`svc/readr`](https://github.com/Shardul9999/ai-pdf-chatbot-langchain)** | RAG over PDFs, isolated per user and per thread | Next.js · LangGraph · pgvector · Groq | ~200ms parse · ~1.3s embed · ~500ms retrieve |
 | **[`svc/url-shortener`](https://github.com/Shardul9999/url-shortener)** | redirects + analytics, SSRF-hardened · [`live docs`](https://url-shortener-672q.onrender.com/docs) | FastAPI · Redis · Docker | 40ms → 6.7ms · 22 tests at 94% coverage |
@@ -52,12 +79,12 @@ The stuff I've actually put into production, and what each one is worth.
 
 ## `GET /traces`
 
-Two paths I measured rather than guessed at.
+Two paths I measured rather than guessed at. Note the last row of the first trace: the red-flag path costs 0.1ms because it deliberately never reaches retrieval or the model.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/trace-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/trace-light.svg">
-  <img alt="Trace waterfall: GET /{slug} cold 40ms vs cached 6.7ms; readr ingest pipeline parse 200ms, embed 1.3s, retrieve 500ms, then SSE stream" src="assets/trace-dark.svg" width="100%">
+  <img alt="Trace waterfall: health-assistant chat path — embed 714.7ms, retrieve 46.2ms, first token at 1129.3ms, answer complete at 2512.2ms, and a red-flag short-circuit at 0.1ms; below it, GET /{slug} cold 40ms versus cached 6.7ms" src="assets/trace-dark.svg" width="100%">
 </picture>
 
 ---
@@ -67,7 +94,20 @@ Two paths I measured rather than guessed at.
 Anyone can list tools. These are the calls I made and what they cost me.
 
 <details>
-<summary><b>ADR-001</b> — Postgres is the queue. No Redis broker, no RabbitMQ.</summary>
+<summary><b>ADR-001</b> — The assistant refuses rather than guesses.</summary>
+
+<br>
+
+**Context.** A health symptom-checker that answers from model knowledge is not a useful product, it's a liability. Retrieval can miss, and an LLM asked a question it has no grounding for will still produce fluent, confident prose.
+
+**Decision.** Four invariants, treated as requirements rather than polish. Red-flag symptoms short-circuit the pipeline *before* retrieval and before any model call. When nothing clears the 0.65 similarity floor, the assistant says it doesn't know instead of answering. Every answer cites the chunks it came from. And user messages are data, never instructions — a message that says "ignore your rules" is content to be retrieved against, not a directive.
+
+**Consequence.** Measured: 0% false hits on out-of-corpus questions, 100% of answers carrying valid citations, and 12/12 red-flags caught with none reaching the model. The cost is real — a 90% in-corpus hit rate means roughly one in ten answerable questions gets refused, because the floor doesn't know the difference between "no good source" and "the source is worded oddly." I'd rather ship that failure than the other one.
+
+</details>
+
+<details>
+<summary><b>ADR-002</b> — Postgres is the queue. No Redis broker, no RabbitMQ.</summary>
 
 <br>
 
@@ -80,7 +120,7 @@ Anyone can list tools. These are the calls I made and what they cost me.
 </details>
 
 <details>
-<summary><b>ADR-002</b> — Cache-aside for redirects, never write-through.</summary>
+<summary><b>ADR-003</b> — Cache-aside for redirects, never write-through.</summary>
 
 <br>
 
@@ -93,7 +133,7 @@ Anyone can list tools. These are the calls I made and what they cost me.
 </details>
 
 <details>
-<summary><b>ADR-003</b> — Fail over to another provider instead of retrying harder.</summary>
+<summary><b>ADR-004</b> — Fail over to another provider instead of retrying harder.</summary>
 
 <br>
 
@@ -101,12 +141,12 @@ Anyone can list tools. These are the calls I made and what they cost me.
 
 **Decision.** Route through a gateway with an ordered provider chain, and treat a failover hop as part of the latency budget rather than an exception.
 
-**Consequence.** Provider incidents degrade instead of page. The cost is that the budget has to absorb one dead hop, so timeouts must be tight enough that the second provider still has room to answer.
+**Consequence.** This stopped being theoretical the moment health-assistant went live: in the benchmark run, Groq served 56% of responses at a p50 of 1843.8ms and Gemini picked up the other **44%** at 3605.6ms, because free-tier token budgeting kept exhausting the primary. The design held — no request failed — but the honest reading is that the fallback is roughly twice as slow, so a p50 that looks fine is really two very different distributions wearing a trenchcoat. Knowing the split is the point of measuring it.
 
 </details>
 
 <details>
-<summary><b>ADR-004</b> — Read the query plan before rewriting the query.</summary>
+<summary><b>ADR-005</b> — Read the query plan before rewriting the query.</summary>
 
 <br>
 
@@ -130,19 +170,24 @@ fluent  = ["python", "sql"]
 working = ["java", "typescript"]
 
 [backend]
-core     = ["fastapi", "sqlalchemy", "alembic", "asyncio"]
-storage  = ["postgresql", "redis", "pgvector", "supabase"]
+core     = ["fastapi", "sqlalchemy", "alembic", "asyncio", "asyncpg"]
+storage  = ["postgresql", "redis", "pgvector", "neon", "upstash", "supabase"]
 patterns = ["cache-aside", "sliding-window rate limits", "SKIP LOCKED queues",
             "leader election", "fencing tokens", "dead-letter queues"]
+
+[frontend]
+enough_to_ship = ["react 18", "typescript", "vite", "next.js", "clerk"]
 
 [ai]
 orchestration = ["langgraph", "langchain"]
 inference     = ["groq", "gemini"]
-retrieval     = ["pgvector cosine top-k", "chunking + embeddings"]
+retrieval     = ["hnsw + cosine top-k", "chunking + embeddings", "similarity floors"]
+guardrails    = ["cite or refuse", "short-circuit before the model",
+                 "user messages are data, never instructions"]
 
 [ops]
 ship = ["docker", "github actions", "render", "vercel", "gcp", "linux"]
-test = ["pytest", "real postgres in CI — not sqlite"]
+test = ["pytest", "real postgres in CI — not sqlite", "benchmarks I can rerun"]
 ```
 
 ---
@@ -150,6 +195,7 @@ test = ["pytest", "real postgres in CI — not sqlite"]
 ## `GET /queue`
 
 ```
+✔  live         health-assistant — grounded RAG, deployed on vercel + render
 ●  shipping     readr — production RAG on langgraph · supabase pgvector · groq
 ◐  sharpening   backend fundamentals — async python, caching, database internals
 ○  exploring    multi-agent systems and orchestration patterns

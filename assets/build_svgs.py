@@ -65,44 +65,51 @@ COL = {
     "svc": (494, 256),
     "state": (886, 266),
 }
-ROW_Y = [125, 201, 277]          # box top edge, per row
-BOX_H = 54
-ROW_MID = [y + BOX_H / 2 for y in ROW_Y]   # 152, 228, 304
+BOX_H = 50
+CANVAS_H = 510
+CENTER_Y = 251                          # ingress + edge sit on this line
+SVC_ROW_Y = [118, 190, 262, 334]        # 4 services
+STATE_ROW_Y = [154, 226, 298]           # 3 backing stores, centred against them
 
+# (name, sub, live)
 SERVICES = [
-    ("svc/url-shortener", "redirects + analytics · fastapi"),
-    ("svc/readr", "rag over pdfs · langgraph"),
-    ("svc/codity", "distributed job scheduler"),
+    ("svc/url-shortener", "redirects + analytics · fastapi", False),
+    ("svc/health-assistant", "grounded rag · vercel + render", True),
+    ("svc/readr", "rag over pdfs · langgraph", False),
+    ("svc/codity", "distributed job scheduler", False),
 ]
 STATE = [
     ("redis", "cache-aside · sliding-window limits"),
-    ("postgres:16", "the queue itself · 13 tables"),
-    ("pgvector", "embeddings · cosine top-k"),
+    ("postgres:16", "the queue itself · neon · 13 tables"),
+    ("pgvector", "hnsw · cosine top-5 · floor 0.65"),
 ]
 
 # (path id, d, kind) -- kind picks the colour
 EDGES = [
-    ("p1", "M198,228 H252", "req"),
-    ("p2", "M434,228 C462,228 466,152 488,152", "req"),
-    ("p3", "M434,228 H488", "req"),
-    ("p4", "M434,228 C462,228 466,304 488,304", "req"),
-    ("p5", "M750,152 H880", "data"),
-    ("p6", "M750,152 C812,152 824,228 880,228", "data"),
-    ("p7", "M750,228 C812,228 824,304 880,304", "data"),
-    ("p8", "M750,304 C812,304 824,228 880,228", "data"),
+    ("p1", "M198,251 H252", "req"),
+    ("p2", "M434,251 C462,251 466,143 488,143", "req"),
+    ("p3", "M434,251 C462,251 466,215 488,215", "req"),
+    ("p4", "M434,251 C462,251 466,287 488,287", "req"),
+    ("p5", "M434,251 C462,251 466,359 488,359", "req"),
+    ("d1", "M750,143 C812,143 824,179 880,179", "data"),
+    ("d2", "M750,143 C812,143 824,251 880,251", "data"),
+    ("d3", "M750,215 C812,215 824,323 880,323", "data"),
+    ("d4", "M750,287 C812,287 824,323 880,323", "data"),
+    ("d5", "M750,359 C812,359 824,251 880,251", "data"),
 ]
 
 # (path, begin, dur)
 PACKETS = [
     ("p1", 0.0, 1.1), ("p1", 0.55, 1.1),
-    ("p2", 1.1, 1.5), ("p3", 1.35, 1.3), ("p4", 1.6, 1.5),
-    ("p5", 2.4, 1.2), ("p6", 2.7, 1.4), ("p7", 2.9, 1.4), ("p8", 3.1, 1.4),
+    ("p2", 1.1, 1.5), ("p3", 1.3, 1.4), ("p4", 1.5, 1.5), ("p5", 1.7, 1.6),
+    ("d1", 2.4, 1.2), ("d2", 2.6, 1.4), ("d3", 2.8, 1.4),
+    ("d4", 3.0, 1.4), ("d5", 3.2, 1.5),
 ]
 
 LOG = [
+    ("health-assistant", "red-flag short-circuit in 0.1ms — no retrieval, no model call"),
+    ("health-assistant", "27/27 answers cited · 129/129 citations valid · 0% false hits"),
     ("codity", "worker claims batch — FOR UPDATE SKIP LOCKED · fencing token issued"),
-    ("url-shortener", "cache-aside HIT 6.7ms · cold path was 40.0ms"),
-    ("readr", "pgvector cosine top-k → groq stream over SSE"),
 ]
 
 TOPO_CSS = """
@@ -113,17 +120,27 @@ TOPO_CSS = """
   .n-name   { font-size: 13px; fill: __TEXT__; }
   .n-sub    { font-size: 10.5px; fill: __MUTED__; }
   .pill     { font-size: 10.5px; fill: __TEAL__; letter-spacing: 0.3px; }
+  .live     { font-size: 8.5px; fill: __TEAL__; letter-spacing: 1.2px; }
   .log      { font-size: 11.5px; }
   .wire     { fill: none; stroke: __FAINT__; stroke-width: 1.25; stroke-dasharray: 3 7; }
 """
 
 
-def node(x, y, w, name, sub, bar_color, name_color=None):
+def node(x, y, w, name, sub, bar_color, name_color=None, live=False):
+    # a live service gets a brighter border and a pulsing beacon on its right edge
+    border = "__TEAL__" if live else "__LINE__"
+    beacon = ""
+    if live:
+        beacon = (f'\n    <circle cx="{x + w - 17}" cy="{y + 18}" r="4" fill="__TEAL__">'
+                  '<animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" '
+                  'repeatCount="indefinite"/></circle>'
+                  f'\n    <text class="mono live" x="{x + w - 27}" y="{y + 21}" '
+                  'text-anchor="end">LIVE</text>')
     return f"""  <g>
-    <rect x="{x}" y="{y}" width="{w}" height="{BOX_H}" rx="9" fill="__PANEL__" stroke="__LINE__"/>
-    <rect x="{x}" y="{y + 12}" width="3" height="{BOX_H - 24}" rx="1.5" fill="{bar_color}"/>
-    <text class="mono n-name" x="{x + 17}" y="{y + 23}" fill="{name_color or '__TEXT__'}">{esc(name)}</text>
-    <text class="mono n-sub" x="{x + 17}" y="{y + 40}">{esc(sub)}</text>
+    <rect x="{x}" y="{y}" width="{w}" height="{BOX_H}" rx="9" fill="__PANEL__" stroke="{border}"/>
+    <rect x="{x}" y="{y + 11}" width="3" height="{BOX_H - 22}" rx="1.5" fill="{bar_color}"/>
+    <text class="mono n-name" x="{x + 17}" y="{y + 22}" fill="{name_color or '__TEXT__'}">{esc(name)}</text>
+    <text class="mono n-sub" x="{x + 17}" y="{y + 38}">{esc(sub)}</text>{beacon}
   </g>"""
 
 
@@ -132,8 +149,8 @@ def build_topology(theme: str) -> str:
     parts = []
 
     parts.append(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" '
-        'width="1200" height="450" role="img" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 {CANVAS_H}" '
+        f'width="1200" height="{CANVAS_H}" role="img" '
         'aria-label="shardul.sys service topology">'
     )
     parts.append("  <title>shardul.sys — service topology</title>")
@@ -149,9 +166,10 @@ def build_topology(theme: str) -> str:
   </defs>""")
 
     # frame
-    parts.append('  <rect width="1200" height="450" rx="14" fill="__BG__"/>')
-    parts.append('  <rect x="0" y="88" width="1200" height="256" fill="url(#grid)" opacity="0.75"/>')
-    parts.append('  <rect x="0.5" y="0.5" width="1199" height="449" rx="14" fill="none" stroke="__LINE__"/>')
+    parts.append(f'  <rect width="1200" height="{CANVAS_H}" rx="14" fill="__BG__"/>')
+    parts.append('  <rect x="0" y="88" width="1200" height="320" fill="url(#grid)" opacity="0.75"/>')
+    parts.append(f'  <rect x="0.5" y="0.5" width="1199" height="{CANVAS_H - 1}" rx="14" '
+                 'fill="none" stroke="__LINE__"/>')
 
     # header
     parts.append('  <text class="mono t-title" x="48" y="46" fill="__TEXT__">shardul'
@@ -167,7 +185,7 @@ def build_topology(theme: str) -> str:
 
     # column captions
     for label, key in (("INGRESS", "ingress"), ("EDGE", "edge"), ("SERVICES", "svc"), ("STATE", "state")):
-        parts.append(f'  <text class="mono col" x="{COL[key][0]}" y="112">{label}</text>')
+        parts.append(f'  <text class="mono col" x="{COL[key][0]}" y="106">{label}</text>')
 
     # wires first so nodes sit on top
     for pid, d, kind in EDGES:
@@ -176,16 +194,17 @@ def build_topology(theme: str) -> str:
                      'repeatCount="indefinite"/></path>')
 
     # nodes
+    mid_top = CENTER_Y - BOX_H // 2
     ix, iw = COL["ingress"]
-    parts.append(node(ix, ROW_Y[1], iw, "client", "browser · curl · sdk", "__FAINT__", "__MUTED__"))
+    parts.append(node(ix, mid_top, iw, "client", "browser · curl · sdk", "__FAINT__", "__MUTED__"))
     ex, ew = COL["edge"]
-    parts.append(node(ex, ROW_Y[1], ew, "edge/gateway", "jwt · rbac · rate limit", "__ACCENT__"))
+    parts.append(node(ex, mid_top, ew, "edge/gateway", "clerk jwt · rbac · rate limit", "__ACCENT__"))
     sx, sw = COL["svc"]
-    for i, (name, sub) in enumerate(SERVICES):
-        parts.append(node(sx, ROW_Y[i], sw, name, sub, "__ACCENT__"))
+    for i, (name, sub, live) in enumerate(SERVICES):
+        parts.append(node(sx, SVC_ROW_Y[i], sw, name, sub, "__ACCENT__", live=live))
     tx, tw = COL["state"]
     for i, (name, sub) in enumerate(STATE):
-        parts.append(node(tx, ROW_Y[i], tw, name, sub, "__TEAL__"))
+        parts.append(node(tx, STATE_ROW_Y[i], tw, name, sub, "__TEAL__"))
 
     # packets in flight
     for pid, begin, dur in PACKETS:
@@ -200,9 +219,9 @@ def build_topology(theme: str) -> str:
   </circle>""")
 
     # log tail
-    parts.append('  <path d="M48,352 H1152" stroke="__LINE__" stroke-width="1"/>')
+    parts.append('  <path d="M48,408 H1152" stroke="__LINE__" stroke-width="1"/>')
     for i, (svc, msg) in enumerate(LOG):
-        y = 378 + i * 24
+        y = 436 + i * 24
         on = 0.10 + i * 0.06          # fraction of the 6s cycle this line appears at
         parts.append(f"""  <text class="mono log" x="48" y="{y}" opacity="0">
     <tspan fill="__TEAL__">[ok]</tspan>
@@ -221,37 +240,43 @@ def build_topology(theme: str) -> str:
 BAR_X0, BAR_X1 = 300, 1140
 BAR_W = BAR_X1 - BAR_X0
 
-# (label, hint, offset_ms, dur_ms, colour_key, open_ended)
+# (label, hint, offset_ms, dur_ms, colour_key, label_override)
+# health-assistant p50s, straight from docs/BENCHMARKS.md. The last two bars carry
+# cumulative "@" timestamps because those are what was measured -- the span widths
+# between them are arithmetic, and labelling them as durations would overclaim.
 PANEL_A = {
+    "title": "POST /api/chat",
+    "hint": "health-assistant · p50, measured · 50 docs / 168 chunks",
+    "scale": 2700.0,
+    "ticks": [0, 500, 1000, 1500, 2000, 2500],
+    "unit": "ms",
+    "y": 128,
+    "rows": [
+        ("embed.gemini", "768-d", 0, 714.7, "accent", None),
+        ("retrieve.pgvector", "hnsw · top-5", 714.7, 46.2, "teal", None),
+        ("llm.first_token", "groq → gemini", 760.9, 368.4, "accent", "@1129.3ms"),
+        ("answer.complete", "4.8 citations", 1129.3, 1382.9, "accent", "@2512.2ms"),
+        ("red_flag.short_circuit", "", 0, 0.1, "teal", "0.1ms"),
+    ],
+}
+PANEL_B = {
     "title": "GET /{slug}",
     "hint": "url-shortener · redirect hot path",
     "scale": 45.0,
     "ticks": [0, 10, 20, 30, 40],
     "unit": "ms",
-    "y": 128,
+    "y": 374,
     "rows": [
-        ("postgres lookup", "cold", 0, 40.0, "muted", False),
-        ("redis cache-aside", "hit", 0, 6.7, "teal", False),
-    ],
-}
-PANEL_B = {
-    "title": "POST /ingest → POST /chat",
-    "hint": "readr · pdf becomes an answer",
-    "scale": 2600.0,
-    "ticks": [0, 500, 1000, 1500, 2000, 2500],
-    "unit": "ms",
-    "y": 274,
-    "rows": [
-        ("parse.pdf", "", 0, 200, "accent", False),
-        ("embed.gemini", "1536-d", 200, 1300, "accent", False),
-        ("vector.search", "pgvector", 1500, 500, "teal", False),
-        ("llm.groq.stream", "", 2000, 200, "teal", True),
+        ("postgres lookup", "cold", 0, 40.0, "muted", None),
+        ("redis cache-aside", "hit", 0, 6.7, "teal", None),
     ],
 }
 
 # (grow start seconds, grow duration seconds) per bar, over a 7s cycle
-TIMING = [(0.25, 0.50), (0.55, 0.50), (1.15, 0.35), (1.50, 0.55), (2.05, 0.40), (2.45, 0.35)]
+TIMING = [(0.30, 0.55), (0.85, 0.30), (1.15, 0.40), (1.55, 0.55), (2.35, 0.25),
+          (2.90, 0.50), (3.20, 0.45)]
 CYCLE = 7.0
+TRACE_H = 480
 
 TRACE_CSS_HEAD = """
   .mono { font-family: __MONO__; }
@@ -281,15 +306,16 @@ def build_trace(theme: str) -> str:
     c = THEMES[theme]
     css = [TRACE_CSS_HEAD]
     parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" '
-        'width="1200" height="440" role="img" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 {TRACE_H}" '
+        f'width="1200" height="{TRACE_H}" role="img" '
         'aria-label="Request traces through two production paths">',
         "  <title>trace — measured production paths</title>",
     ]
     body = []
 
-    body.append('  <rect width="1200" height="440" rx="14" fill="__BG__"/>')
-    body.append('  <rect x="0.5" y="0.5" width="1199" height="439" rx="14" fill="none" stroke="__LINE__"/>')
+    body.append(f'  <rect width="1200" height="{TRACE_H}" rx="14" fill="__BG__"/>')
+    body.append(f'  <rect x="0.5" y="0.5" width="1199" height="{TRACE_H - 1}" rx="14" '
+                'fill="none" stroke="__LINE__"/>')
     body.append('  <text class="mono t-title" x="48" y="46" fill="__TEXT__">trace'
                 '<tspan fill="__ACCENT__">.</tspan></text>')
     body.append('  <text class="mono t-sub" x="48" y="68">'
@@ -311,7 +337,7 @@ def build_trace(theme: str) -> str:
             body.append(f'  <text class="mono tick" x="{gx:.1f}" y="{axis_y + 15}" text-anchor="middle">'
                         f'{t}{panel["unit"] if t == panel["ticks"][-1] else ""}</text>')
 
-        for row_i, (name, hint, off, dur, ckey, open_end) in enumerate(panel["rows"]):
+        for row_i, (name, hint, off, dur, ckey, label_override) in enumerate(panel["rows"]):
             y = py + row_i * 32
             x = BAR_X0 + off * scale
             w = max(dur * scale, 3)
@@ -332,10 +358,8 @@ def build_trace(theme: str) -> str:
                         f'fill="{fill}" opacity="{alpha}">'
                         f'{cycle_anim("width", f"{w:.1f}", start, end)}</rect>')
             # the duration label lands the moment the bar finishes
-            if open_end:
-                lbl, lcol = "→ first token · SSE", ' fill="__MUTED__"'
-            else:
-                lbl, lcol = f"{dur:g}{panel['unit']}", ""
+            lbl = label_override or f"{dur:g}{panel['unit']}"
+            lcol = ""
             body.append(f'  <text class="mono dur" x="{x + w + 12:.1f}" y="{y + 15}"{lcol} opacity="0">'
                         f'{esc(lbl)}'
                         f'<animate attributeName="opacity" dur="{CYCLE}s" repeatCount="indefinite" '
@@ -345,13 +369,16 @@ def build_trace(theme: str) -> str:
 
         body.append(f'  <path d="M{BAR_X0},{axis_y} H{BAR_X1}" stroke="__LINE__" stroke-width="1"/>')
 
-    # the punchline, landing just after the redis bar settles
-    note_end = TIMING[1][0] + TIMING[1][1]
-    body.append(f'  <text class="mono note" x="510" y="175" opacity="0">'
-                f'← 6× faster — and the cache is never the source of truth'
-                f'<animate attributeName="opacity" dur="{CYCLE}s" repeatCount="indefinite" '
-                f'values="0;0;1;1;0" '
-                f'keyTimes="0;{note_end / CYCLE:.4f};{(note_end + 0.2) / CYCLE:.4f};0.93;1"/></text>')
+    # the two punchlines, each landing just after the bar it belongs to
+    for bar_i, x, y, text in (
+        (4, 365, 271, "← the safety path short-circuits before retrieval, before the model"),
+        (6, 505, 421, "← 6× faster, and the cache is never the source of truth"),
+    ):
+        end = TIMING[bar_i][0] + TIMING[bar_i][1]
+        body.append(f'  <text class="mono note" x="{x}" y="{y}" opacity="0">{esc(text)}'
+                    f'<animate attributeName="opacity" dur="{CYCLE}s" repeatCount="indefinite" '
+                    f'values="0;0;1;1;0" '
+                    f'keyTimes="0;{end / CYCLE:.4f};{(end + 0.2) / CYCLE:.4f};0.93;1"/></text>')
 
     parts.append(f"  <style>{''.join(css)}\n  </style>")
     parts.extend(body)
