@@ -1,108 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 344" width="1200" height="344" role="img" aria-label="Fleet status board for eight services">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 576" width="860" height="576" role="img" aria-label="Fleet status board: eight service tiles with status lamps">
   <title>fleet — service status</title>
   <style>
   .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
-  .h-title { font-size: 29px; font-weight: 700; letter-spacing: -0.4px; }
-  .h-sub   { font-size: 12px; fill: #5b6672; }
+  .h-title { font-size: 26px; font-weight: 700; letter-spacing: -0.3px; }
+  .h-sub   { font-size: 13px; fill: #54606d; }
 
-  .f-name  { font-size: 12.5px; fill: #161b22; }
-  .f-l1    { font-size: 10.5px; fill: #5b6672; }
-  .f-l2    { font-size: 10px; fill: #98a3b0; }
-  .f-tag   { font-size: 8.5px; letter-spacing: 1.2px; }
+  .f-name { font-size: 15px; fill: #161b22; }
+  .f-l1   { font-size: 12.5px; fill: #54606d; }
+  .f-l2   { font-size: 11.5px; fill: #8894a3; }
+  .f-tag  { font-size: 10.5px; letter-spacing: 1.1px; }
 </style>
-  <defs>
-    <linearGradient id="sweep" x1="0" x2="1">
-      <stop offset="0" stop-color="#0f766e" stop-opacity="0"/>
-      <stop offset="0.5" stop-color="#0f766e" stop-opacity="0.07"/>
-      <stop offset="1" stop-color="#0f766e" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="344" rx="14" fill="#ffffff"/>
-  <rect x="0.5" y="0.5" width="1199" height="343" rx="14" fill="none" stroke="#d5dce4"/>
-  <text class="mono h-title" x="48" y="46" fill="#161b22">fleet<tspan fill="#c0392b">.status</tspan></text>
-  <text class="mono h-sub" x="48" y="68">eight services · one of them is answering requests right now</text>
-  <path d="M48,86 H1152" stroke="#d5dce4" stroke-width="1"/>
+  <defs><linearGradient id="sweep" x1="0" x2="1">
+    <stop offset="0" stop-color="#0f766e" stop-opacity="0"/>
+    <stop offset="0.5" stop-color="#0f766e" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#0f766e" stop-opacity="0"/>
+  </linearGradient></defs>
+  <rect width="860" height="576" rx="14" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="859" height="575" rx="14" fill="none" stroke="#d5dce4"/>
+  <text class="mono h-title" x="32" y="44" fill="#161b22">fleet<tspan fill="#c0392b">.status</tspan></text>
+  <text class="mono h-sub" x="32" y="66">eight services · one of them is answering requests right now</text>
+  <path d="M32,84 H828" stroke="#d5dce4" stroke-width="1"/>
   <g>
-    <rect x="40" y="104" width="268" height="92" rx="10"
+    <rect x="32" y="100" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#0f766e"/>
-    <circle cx="60" cy="129" r="4.5" fill="#0f766e"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="1.6s" begin="0.0s" repeatCount="indefinite"/></circle>
-    <text class="mono f-name" x="74" y="133">health-assistant</text>
-    <text class="mono f-tag" x="294" y="132" text-anchor="end"
+    <circle cx="54" cy="128" r="5" fill="#0f766e"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="1.6s" begin="0.0s" repeatCount="indefinite"/></circle>
+    <text class="mono f-name" x="72" y="133">health-assistant</text>
+    <text class="mono f-tag" x="404" y="132" text-anchor="end"
           fill="#0f766e">LIVE</text>
-    <text class="mono f-l1" x="60" y="161">90% hit · 0% false hits</text>
-    <text class="mono f-l2" x="60" y="180">p50 2512ms · 100% cited</text>
+    <text class="mono f-l1" x="54" y="163">90% hit · 0% false hits</text>
+    <text class="mono f-l2" x="54" y="185">p50 2512ms · 100% cited</text>
   </g>
   <g>
-    <rect x="324" y="104" width="268" height="92" rx="10"
+    <rect x="440" y="100" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="344" cy="129" r="4.5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="0.25s" repeatCount="indefinite"/></circle>
-    <text class="mono f-name" x="358" y="133">codity</text>
-    <text class="mono f-tag" x="578" y="132" text-anchor="end"
+    <circle cx="462" cy="128" r="5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="0.25s" repeatCount="indefinite"/></circle>
+    <text class="mono f-name" x="480" y="133">codity</text>
+    <text class="mono f-tag" x="812" y="132" text-anchor="end"
           fill="#c0392b">SHIPPED</text>
-    <text class="mono f-l1" x="344" y="161">exactly-once · 10 workers</text>
-    <text class="mono f-l2" x="344" y="180">58 endpoints · 48 CI tests</text>
+    <text class="mono f-l1" x="462" y="163">exactly-once · 10 workers</text>
+    <text class="mono f-l2" x="462" y="185">58 endpoints · 48 CI tests</text>
   </g>
   <g>
-    <rect x="608" y="104" width="268" height="92" rx="10"
+    <rect x="32" y="216" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="628" cy="129" r="4.5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="0.5s" repeatCount="indefinite"/></circle>
-    <text class="mono f-name" x="642" y="133">readr</text>
-    <text class="mono f-tag" x="862" y="132" text-anchor="end"
+    <circle cx="54" cy="244" r="5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="0.5s" repeatCount="indefinite"/></circle>
+    <text class="mono f-name" x="72" y="249">readr</text>
+    <text class="mono f-tag" x="404" y="248" text-anchor="end"
           fill="#c0392b">SHIPPED</text>
-    <text class="mono f-l1" x="628" y="161">pdf → grounded answer</text>
-    <text class="mono f-l2" x="628" y="180">per-user + per-thread isolation</text>
+    <text class="mono f-l1" x="54" y="279">pdf → grounded answer</text>
+    <text class="mono f-l2" x="54" y="301">per-user + per-thread isolation</text>
   </g>
   <g>
-    <rect x="892" y="104" width="268" height="92" rx="10"
+    <rect x="440" y="216" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="912" cy="129" r="4.5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="0.75s" repeatCount="indefinite"/></circle>
-    <text class="mono f-name" x="926" y="133">url-shortener</text>
-    <text class="mono f-tag" x="1146" y="132" text-anchor="end"
+    <circle cx="462" cy="244" r="5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="0.75s" repeatCount="indefinite"/></circle>
+    <text class="mono f-name" x="480" y="249">url-shortener</text>
+    <text class="mono f-tag" x="812" y="248" text-anchor="end"
           fill="#c0392b">SHIPPED</text>
-    <text class="mono f-l1" x="912" y="161">40ms → 6.7ms cached</text>
-    <text class="mono f-l2" x="912" y="180">94% coverage · 22 tests</text>
+    <text class="mono f-l1" x="462" y="279">40ms → 6.7ms cached</text>
+    <text class="mono f-l2" x="462" y="301">94% coverage · 22 tests</text>
   </g>
   <g>
-    <rect x="40" y="212" width="268" height="92" rx="10"
+    <rect x="32" y="332" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="60" cy="237" r="4.5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="1.0s" repeatCount="indefinite"/></circle>
-    <text class="mono f-name" x="74" y="241">support-copilot</text>
-    <text class="mono f-tag" x="294" y="240" text-anchor="end"
+    <circle cx="54" cy="360" r="5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="1.0s" repeatCount="indefinite"/></circle>
+    <text class="mono f-name" x="72" y="365">support-copilot</text>
+    <text class="mono f-tag" x="404" y="364" text-anchor="end"
           fill="#c0392b">SHIPPED</text>
-    <text class="mono f-l1" x="60" y="269">multi-tenant backend</text>
-    <text class="mono f-l2" x="60" y="288">alembic migrations, versioned</text>
+    <text class="mono f-l1" x="54" y="395">multi-tenant backend</text>
+    <text class="mono f-l2" x="54" y="417">alembic migrations, versioned</text>
   </g>
   <g>
-    <rect x="324" y="212" width="268" height="92" rx="10"
+    <rect x="440" y="332" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="344" cy="237" r="4.5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="1.25s" repeatCount="indefinite"/></circle>
-    <text class="mono f-name" x="358" y="241">ai-gateway</text>
-    <text class="mono f-tag" x="578" y="240" text-anchor="end"
+    <circle cx="462" cy="360" r="5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="1.25s" repeatCount="indefinite"/></circle>
+    <text class="mono f-name" x="480" y="365">ai-gateway</text>
+    <text class="mono f-tag" x="812" y="364" text-anchor="end"
           fill="#c0392b">SHIPPED</text>
-    <text class="mono f-l1" x="344" y="269">ordered provider chain</text>
-    <text class="mono f-l2" x="344" y="288">dead provider ≠ dead request</text>
+    <text class="mono f-l1" x="462" y="395">ordered provider chain</text>
+    <text class="mono f-l2" x="462" y="417">dead provider ≠ dead request</text>
   </g>
   <g>
-    <rect x="608" y="212" width="268" height="92" rx="10"
+    <rect x="32" y="448" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="628" cy="237" r="4.5" fill="#98a3b0"></circle>
-    <text class="mono f-name" x="642" y="241">pg-tuning</text>
-    <text class="mono f-tag" x="862" y="240" text-anchor="end"
-          fill="#98a3b0">LAB</text>
-    <text class="mono f-l1" x="628" y="269">1M synthetic rows</text>
-    <text class="mono f-l2" x="628" y="288">up to 20,000× via indexes</text>
+    <circle cx="54" cy="476" r="5" fill="#8894a3"></circle>
+    <text class="mono f-name" x="72" y="481">pg-tuning</text>
+    <text class="mono f-tag" x="404" y="480" text-anchor="end"
+          fill="#8894a3">LAB</text>
+    <text class="mono f-l1" x="54" y="511">1M synthetic rows</text>
+    <text class="mono f-l2" x="54" y="533">up to 20,000× via indexes</text>
   </g>
   <g>
-    <rect x="892" y="212" width="268" height="92" rx="10"
+    <rect x="440" y="448" width="388" height="100" rx="11"
           fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="912" cy="237" r="4.5" fill="#98a3b0"></circle>
-    <text class="mono f-name" x="926" y="241">cloudbeat</text>
-    <text class="mono f-tag" x="1146" y="240" text-anchor="end"
-          fill="#98a3b0">LAB</text>
-    <text class="mono f-l1" x="912" y="269">spotify oauth + 3D</text>
-    <text class="mono f-l2" x="912" y="288">60fps spline scene</text>
+    <circle cx="462" cy="476" r="5" fill="#8894a3"></circle>
+    <text class="mono f-name" x="480" y="481">cloudbeat</text>
+    <text class="mono f-tag" x="812" y="480" text-anchor="end"
+          fill="#8894a3">LAB</text>
+    <text class="mono f-l1" x="462" y="511">spotify oauth + 3D</text>
+    <text class="mono f-l2" x="462" y="533">60fps spline scene</text>
   </g>
-  <rect x="0" y="96" width="240" height="224" fill="url(#sweep)">
-    <animate attributeName="x" values="-240;1200" dur="6s" repeatCount="indefinite"/>
+  <rect x="0" y="94" width="200" height="470" fill="url(#sweep)">
+    <animate attributeName="x" values="-200;860" dur="6s" repeatCount="indefinite"/>
   </rect>
 </svg>
