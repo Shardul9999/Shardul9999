@@ -1,156 +1,187 @@
-<div align="center">
+<!-- Topology + trace are generated: `python assets/build_svgs.py` -->
 
-# Shardul Shripad Hingane
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/system-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/system-light.svg">
+  <img alt="shardul.sys — service topology: client → edge/gateway → services → postgres, redis, pgvector" src="assets/system-dark.svg" width="100%">
+</picture>
 
-### Backend &amp; AI Systems Engineer
+```http
+GET /whoami HTTP/1.1
+Host: shardul.sys
 
-<img src="https://komarev.com/ghpvc/?username=Shardul9999&label=Profile%20Views&color=C0392B&style=flat-square" alt="Profile views" />
+HTTP/1.1 200 OK
+content-type: application/json
+```
 
-<img src="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg" alt="Contribution snake animation" />
+```json
+{
+  "name":    "Shardul Shripad Hingane",
+  "role":    "backend & AI systems engineer",
+  "host":    "SGGS Nanded · B.Tech IT · 2024→2027 · CGPA 8.5",
+  "runtime": "async python · fastapi · postgres · redis",
+  "solved":  "400+ DSA problems, still counting",
 
-<p>
-B.Tech in Information Technology @ <b>SGGS Nanded</b> (2024–2027) · CGPA 8.5<br/>
-I build backend systems that hold up under load — production APIs, RAG pipelines,<br/>
-and the occasional 3D interface. Currently deep in async Python, caching strategies,<br/>
-and AI agent architectures. 400+ DSA problems solved.
-</p>
+  "thesis": [
+    "a queue that loses jobs was never a queue",
+    "a cache that lies is worse than no cache at all",
+    "an LLM call with no fallback is a single point of failure"
+  ],
 
-<br/>
-
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit_Site-C0392B?style=for-the-badge&logo=vercel&logoColor=white)](https://shardul-portfolio-iota.vercel.app/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ShardulHingane)
-[![LeetCode](https://img.shields.io/badge/LeetCode-2B90D9?style=for-the-badge&logo=Leetcode&logoColor=white)](https://leetcode.com/u/shardul_16/)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shardulhingane16@gmail.com)
-
-</div>
-
-<br/>
-
----
-
-<div align="center">
-
-## 🚀 Featured Projects
-
-</div>
-
-<table align="center">
-<tr>
-<td width="50%" valign="top">
-
-### URL Shortener &amp; Analytics API
-
-Production-grade backend API with Redis cache-aside cutting redirect latency **6×** (40ms → 6.7ms). Sliding-window rate limiter via atomic Redis pipelines, SSRF-hardened validation, 22 pytest cases at 94% coverage, CI on every commit.
-
-**FastAPI · PostgreSQL · Redis · Docker · SQLAlchemy**
-
-[`Source`](https://github.com/Shardul9999/url-shortener) · [`Live Docs`](https://url-shortener-672q.onrender.com/docs)
-
-</td>
-<td width="50%" valign="top">
-
-### Readr — AI PDF Chatbot
-
-Full-stack RAG pipeline turning PDFs into a conversational knowledge base — ~200ms parse, ~1.3s embed, 500ms retrieval. Gemini embeddings + Supabase pgvector for similarity search, Groq streaming over SSE, Clerk auth with per-user isolation.
-
-**Next.js · TypeScript · LangGraph · Supabase · Groq**
-
-[`Source`](https://github.com/Shardul9999/ai-pdf-chatbot-langchain)
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-### CloudBeat
-
-3D music platform with full Spotify OAuth — browse your library and control playback inside a GPU-accelerated Spline scene locked at 60fps.
-
-**React · Flask · Spline 3D · Supabase · OAuth 2.0**
-
-[`Source`](https://github.com/Shardul9999/CloudBeat)
-
-</td>
-<td width="50%" valign="top">
-
-### Systems Deep Dives
-
-Smaller builds done to understand the machinery — **query optimization** (1M-row PostgreSQL, up to 20,000× faster via B-Tree/GIN indexing), an **async task queue** on `asyncio.Queue`, and a **multi-provider LLM fallback gateway** with automatic failover.
-
-**PostgreSQL · asyncio · FastAPI · Python**
-
-</td>
-</tr>
-</table>
-
-<br/>
+  "status":  "shipping · open to backend / AI-infra work"
+}
+```
 
 ---
 
-<div align="center">
+## `GET /services`
 
-## 🧰 Technical Arsenal
+The stuff I've actually put into production, and what each one is worth.
 
-**Languages**
-
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=postgresql&logoColor=white)
-
-**Backend &amp; Infrastructure**
-
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white)
-
-**AI / RAG**
-
-![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C?style=flat-square&logo=langchain&logoColor=white)
-![Groq](https://img.shields.io/badge/Groq-F55036?style=flat-square&logo=groq&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini-8E75B2?style=flat-square&logo=googlegemini&logoColor=white)
-![pgvector](https://img.shields.io/badge/pgvector-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-
-**Tools &amp; Platforms**
-
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
-![GCP](https://img.shields.io/badge/GCP-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
-
-</div>
-
-<br/>
+| service | responsibility | stack | measured |
+|---|---|---|---|
+| **[`svc/codity`](https://github.com/Shardul9999/Distributed-Job-Scheduler)** | distributed job scheduler — Postgres *is* the broker | FastAPI · PG16 · Next.js · Docker | exactly-once across 10 workers × 500 jobs · 58 endpoints · 48 CI tests |
+| **[`svc/readr`](https://github.com/Shardul9999/ai-pdf-chatbot-langchain)** | RAG over PDFs, isolated per user and per thread | Next.js · LangGraph · pgvector · Groq | ~200ms parse · ~1.3s embed · ~500ms retrieve |
+| **[`svc/url-shortener`](https://github.com/Shardul9999/url-shortener)** | redirects + analytics, SSRF-hardened · [`live docs`](https://url-shortener-672q.onrender.com/docs) | FastAPI · Redis · Docker | 40ms → 6.7ms · 22 tests at 94% coverage |
+| **[`svc/support-copilot`](https://github.com/Shardul9999/fastapi-ai-support-copilot)** | multi-tenant support backend | FastAPI · SQLAlchemy · Alembic · pgvector | tenant-scoped, migrations under version control |
+| **[`svc/ai-gateway`](https://github.com/Shardul9999/AI-Fallback-Gateway)** | multi-provider LLM failover | Python · FastAPI | a dead provider ≠ a dead request |
+| **[`lab/pg-tuning`](https://github.com/Shardul9999/postgresql_performance_tuining)** | 1M synthetic rows, read the plan before the code | PostgreSQL · B-Tree · GIN | up to 20,000× on the worst offenders |
+| **[`svc/cloudbeat`](https://github.com/Shardul9999/CloudBeat)** | 3D music player over Spotify OAuth | React · Flask · Spline · Supabase | 60fps GPU scene |
 
 ---
 
-<div align="center">
+## `GET /traces`
 
-## 📊 GitHub Analytics
+Two paths I measured rather than guessed at.
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Shardul9999&theme=github-dark&hide_border=true&area=true" width="95%" alt="Activity Graph" />
-
-<br/>
-
-<img height="165" src="https://github-readme-streak-stats.herokuapp.com/?user=Shardul9999&theme=dark&hide_border=true" alt="Streak Stats" />
-
-</div>
-
-<br/>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/trace-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/trace-light.svg">
+  <img alt="Trace waterfall: GET /{slug} cold 40ms vs cached 6.7ms; readr ingest pipeline parse 200ms, embed 1.3s, retrieve 500ms, then SSE stream" src="assets/trace-dark.svg" width="100%">
+</picture>
 
 ---
 
-<div align="center">
+## `GET /decisions`
 
-## ⚡ Currently
+Anyone can list tools. These are the calls I made and what they cost me.
 
-🔭 &nbsp;Shipping **Readr** — a production RAG chatbot (LangGraph · Supabase pgvector · Groq)  
-⚙️ &nbsp;Sharpening backend fundamentals — async Python, caching, database internals  
-🌱 &nbsp;Exploring multi-agent AI systems and orchestration patterns
+<details>
+<summary><b>ADR-001</b> — Postgres is the queue. No Redis broker, no RabbitMQ.</summary>
 
-<br/>
+<br>
 
-<sub>Let's build something that lasts. → <a href="https://shardul-portfolio-iota.vercel.app/">shardul-portfolio-iota.vercel.app</a></sub>
+**Context.** Codity needed background jobs to run exactly once across a worker fleet, including when a worker dies mid-job.
 
-</div>
+**Decision.** Make Postgres the broker. Workers claim disjoint batches with `SELECT … FOR UPDATE SKIP LOCKED`, hold a fencing token so a zombie process can't complete work it no longer owns, and heartbeat while running. A leader-elected reaper nulls the stale lock tokens of dead workers and revives their jobs.
+
+**Consequence.** One less system to operate, and job state commits in the *same transaction* as the business data it belongs to — no dual-write problem. The ceiling is now Postgres throughput. At this scale that's a trade worth making; at 100× it stops being one, and I'd want to know that before I got there.
+
+</details>
+
+<details>
+<summary><b>ADR-002</b> — Cache-aside for redirects, never write-through.</summary>
+
+<br>
+
+**Context.** `GET /{slug}` is a read-dominated hot path where a cold lookup cost 40ms.
+
+**Decision.** Cache-aside in Redis, TTL-bounded. Rate limiting is a sliding window built from atomic Redis pipelines, so the check itself can't race.
+
+**Consequence.** 6.7ms warm — roughly 6× faster. Staleness is bounded by the TTL, and the important part is structural: the cache is an optimization, so a cold Redis degrades latency instead of correctness.
+
+</details>
+
+<details>
+<summary><b>ADR-003</b> — Fail over to another provider instead of retrying harder.</summary>
+
+<br>
+
+**Context.** A single LLM vendor is a single point of failure, and retrying against a provider that is *down* just spends the user's latency budget for nothing.
+
+**Decision.** Route through a gateway with an ordered provider chain, and treat a failover hop as part of the latency budget rather than an exception.
+
+**Consequence.** Provider incidents degrade instead of page. The cost is that the budget has to absorb one dead hop, so timeouts must be tight enough that the second provider still has room to answer.
+
+</details>
+
+<details>
+<summary><b>ADR-004</b> — Read the query plan before rewriting the query.</summary>
+
+<br>
+
+**Context.** 1M synthetic rows and a set of queries that were, charitably, slow.
+
+**Decision.** `EXPLAIN ANALYZE` first, every time. Then targeted B-Tree and GIN indexes against what the planner actually did — not what I assumed it did.
+
+**Consequence.** Up to 20,000× on the worst offenders, without touching application code. Indexes aren't free: they cost write throughput and disk, which is exactly why they should follow evidence instead of instinct.
+
+</details>
+
+---
+
+## `GET /runtime`
+
+```toml
+# shardul.sys/runtime.toml
+
+[languages]
+fluent  = ["python", "sql"]
+working = ["java", "typescript"]
+
+[backend]
+core     = ["fastapi", "sqlalchemy", "alembic", "asyncio"]
+storage  = ["postgresql", "redis", "pgvector", "supabase"]
+patterns = ["cache-aside", "sliding-window rate limits", "SKIP LOCKED queues",
+            "leader election", "fencing tokens", "dead-letter queues"]
+
+[ai]
+orchestration = ["langgraph", "langchain"]
+inference     = ["groq", "gemini"]
+retrieval     = ["pgvector cosine top-k", "chunking + embeddings"]
+
+[ops]
+ship = ["docker", "github actions", "render", "vercel", "gcp", "linux"]
+test = ["pytest", "real postgres in CI — not sqlite"]
+```
+
+---
+
+## `GET /queue`
+
+```
+●  shipping     readr — production RAG on langgraph · supabase pgvector · groq
+◐  sharpening   backend fundamentals — async python, caching, database internals
+○  exploring    multi-agent systems and orchestration patterns
+```
+
+---
+
+## `GET /traffic`
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg">
+  <img alt="Contribution graph consumed by a snake" src="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg" width="100%">
+</picture>
+
+---
+
+## `GET /health`
+
+```json
+{
+  "status": "up",
+  "region": "in-nanded-1",
+  "links": {
+    "portfolio": "shardul-portfolio-iota.vercel.app",
+    "linkedin":  "in/ShardulHingane",
+    "leetcode":  "u/shardul_16",
+    "email":     "shardulhingane16@gmail.com"
+  }
+}
+```
+
+**[portfolio](https://shardul-portfolio-iota.vercel.app/)** · **[linkedin](https://linkedin.com/in/ShardulHingane)** · **[leetcode](https://leetcode.com/u/shardul_16/)** · **[email](mailto:shardulhingane16@gmail.com)**
+
+<sub>Everything above is generated from a script in <a href="assets/build_svgs.py"><code>assets/</code></a> — no third-party stat services, no tracking pixels, nothing that can 404 on me.</sub>
