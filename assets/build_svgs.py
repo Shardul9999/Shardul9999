@@ -128,7 +128,7 @@ STATE_Y = [148, 228, 308]
 MID_Y = 259
 
 SERVICES = [
-    ("svc/url-shortener", "redirects + analytics · fastapi", False),
+    ("svc/url-shortener", "redirects + analytics · vercel + render", True),
     ("svc/health-assistant", "grounded rag · vercel + render", True),
     ("svc/readr", "rag over pdfs · langgraph", False),
     ("svc/codity", "distributed job scheduler", False),
@@ -390,7 +390,7 @@ FLEET = [
     ("health-assistant", "live", "90% hit · 0% false hits", "p50 2512ms · 100% cited"),
     ("codity", "prod", "exactly-once · 10 workers", "58 endpoints · 48 CI tests"),
     ("readr", "prod", "pdf → grounded answer", "per-user + per-thread isolation"),
-    ("url-shortener", "prod", "40ms → 6.7ms cached", "94% coverage · 22 tests"),
+    ("url-shortener", "live", "40ms → 6.7ms cached", "94% coverage · 22 tests"),
     ("support-copilot", "prod", "multi-tenant backend", "alembic migrations, versioned"),
     ("ai-gateway", "prod", "ordered provider chain", "dead provider ≠ dead request"),
     ("pg-tuning", "lab", "1M synthetic rows", "up to 20,000× via indexes"),
@@ -418,7 +418,7 @@ def build_fleet(theme):
     <stop offset="1" stop-color="__TEAL__" stop-opacity="0"/>
   </linearGradient></defs>""")
     p += frame(FLEET_H)
-    p += panel_head("fleet", ".status", "eight services · one of them is answering "
+    p += panel_head("fleet", ".status", "eight services · two of them are answering "
                                         "requests right now")
 
     for i, (name, kind, l1, l2) in enumerate(FLEET):
@@ -558,7 +558,7 @@ RESPONSE = [
     [("{", "t-punc")],
     [('  "status":  ', "t-key"), ('"up"', "t-str"), (",", "t-punc")],
     [('  "region":  ', "t-key"), ('"in-nanded-1"', "t-str"), (",", "t-punc")],
-    [('  "live":    ', "t-key"), ('["health-assistant"]', "t-str"), (",", "t-punc")],
+    [('  "live":    ', "t-key"), ('["health-assistant", "url-shortener"]', "t-str"), (",", "t-punc")],
     [('  "open_to": ', "t-key"), ('"backend · infra · ai-systems work"', "t-str"), (",", "t-punc")],
     [('  "reach":   ', "t-key"), ('"portfolio · linkedin · leetcode · email"', "t-str")],
     [("}", "t-punc")],

@@ -46,10 +46,12 @@
     <text class="mono n-sub" x="49" y="275">clerk jwt · rbac</text>
   </g>
   <g>
-    <rect x="282" y="108" width="286" height="62" rx="10" fill="#11161d" stroke="#2b333d"/>
+    <rect x="282" y="108" width="286" height="62" rx="10" fill="#11161d" stroke="#39d3bb"/>
     <rect x="282" y="122" width="3.5" height="34" rx="1.75" fill="#ff6b4a"/>
     <text class="mono n-name" x="299" y="134" fill="#e6edf3">svc/url-shortener</text>
-    <text class="mono n-sub" x="299" y="155">redirects + analytics · fastapi</text>
+    <text class="mono n-sub" x="299" y="155">redirects + analytics · vercel + render</text>
+    <circle cx="550" cy="129" r="4.5" fill="#39d3bb"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/></circle>
+    <text class="mono live" x="539" y="133" text-anchor="end">LIVE</text>
   </g>
   <g>
     <rect x="282" y="188" width="286" height="62" rx="10" fill="#11161d" stroke="#39d3bb"/>

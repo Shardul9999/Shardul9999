@@ -18,7 +18,7 @@
   <rect width="860" height="576" rx="14" fill="#ffffff"/>
   <rect x="0.5" y="0.5" width="859" height="575" rx="14" fill="none" stroke="#d5dce4"/>
   <text class="mono h-title" x="32" y="44" fill="#161b22">fleet<tspan fill="#c0392b">.status</tspan></text>
-  <text class="mono h-sub" x="32" y="66">eight services · one of them is answering requests right now</text>
+  <text class="mono h-sub" x="32" y="66">eight services · two of them are answering requests right now</text>
   <path d="M32,84 H828" stroke="#d5dce4" stroke-width="1"/>
   <g>
     <rect x="32" y="100" width="388" height="100" rx="11"
@@ -52,11 +52,11 @@
   </g>
   <g>
     <rect x="440" y="216" width="388" height="100" rx="11"
-          fill="#f7f9fb" stroke="#d5dce4"/>
-    <circle cx="462" cy="244" r="5" fill="#c0392b"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="3.4s" begin="0.75s" repeatCount="indefinite"/></circle>
+          fill="#f7f9fb" stroke="#0f766e"/>
+    <circle cx="462" cy="244" r="5" fill="#0f766e"><animate attributeName="opacity" values="0.25;1.0;0.25" dur="1.6s" begin="0.75s" repeatCount="indefinite"/></circle>
     <text class="mono f-name" x="480" y="249">url-shortener</text>
     <text class="mono f-tag" x="812" y="248" text-anchor="end"
-          fill="#c0392b">SHIPPED</text>
+          fill="#0f766e">LIVE</text>
     <text class="mono f-l1" x="462" y="279">40ms → 6.7ms cached</text>
     <text class="mono f-l2" x="462" y="301">94% coverage · 22 tests</text>
   </g>

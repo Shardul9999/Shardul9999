@@ -3,7 +3,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/system-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/system-light.svg">
-  <img alt="shardul.sys — service topology: client → edge/gateway → four services, one of them live → redis, postgres, pgvector" src="assets/system-dark.svg" width="100%">
+  <img alt="shardul.sys — service topology: client → edge/gateway → four services, two of them live → redis, postgres, pgvector" src="assets/system-dark.svg" width="100%">
 </picture>
 
 ```http
@@ -58,6 +58,25 @@ Measured across 50 documents / 168 chunks — the full run is in [`docs/BENCHMAR
 > [!NOTE]
 > The API sleeps after 15 minutes idle on Render's free tier. Open the `/health` link first — a cold start takes 30–60s — then the app.
 
+<br>
+
+**[url-shortener](https://github.com/Shardul9999/url-shortener)** — sub-millisecond cached redirects, sliding-window limits & click analytics. Deployed and live:
+
+### **[→ open the app](https://url-shortener-eight-murex.vercel.app/)** &nbsp;·&nbsp; [api `/health`](https://url-shortener-672q.onrender.com/health) &nbsp;·&nbsp; [api docs](https://url-shortener-672q.onrender.com/docs)
+
+A production-style REST API that shortens URLs, serves sub-millisecond cached redirects, and tracks click analytics via background tasks. SSRF-hardened against cloud metadata and private IP ranges. Sliding-window rate limiting enforced atomically in Redis pipelines.
+
+`React + Vite on Vercel` · `FastAPI in Docker on Render` · `Postgres 16 on Neon` · `Redis on Upstash`
+
+Measured directly against cache-aside:
+
+| | |
+|---|---|
+| cache miss — Postgres round-trip | **~39.96ms** |
+| cache hit — served from Redis | **~6.68ms** (6× latency reduction) |
+| test suite & coverage | **22 tests** — 94% coverage |
+| sliding-window limits | **100 req/min** (shorten) · **1 000 req/min** (redirect) |
+
 ---
 
 ## `GET /services`
@@ -65,7 +84,7 @@ Measured across 50 documents / 168 chunks — the full run is in [`docs/BENCHMAR
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/fleet-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/fleet-light.svg">
-  <img alt="Fleet status board: eight service tiles with status lamps — health-assistant live, five shipped, two labs" src="assets/fleet-dark.svg" width="100%">
+  <img alt="Fleet status board: eight service tiles with status lamps — two live, four shipped, two labs" src="assets/fleet-dark.svg" width="100%">
 </picture>
 
 Same eight, with the links and the detail:
@@ -75,7 +94,7 @@ Same eight, with the links and the detail:
 | **[`svc/health-assistant`](https://github.com/Shardul9999/Health_Assistant)** `● live` | grounded RAG that cites every claim and refuses below the floor | React · FastAPI · pgvector · Neon · Upstash | 90% hit rate · 0% false hits · 100% cited · p50 2512ms |
 | **[`svc/codity`](https://github.com/Shardul9999/Distributed-Job-Scheduler)** | distributed job scheduler — Postgres *is* the broker | FastAPI · PG16 · Next.js · Docker | exactly-once across 10 workers × 500 jobs · 58 endpoints · 48 CI tests |
 | **[`svc/readr`](https://github.com/Shardul9999/ai-pdf-chatbot-langchain)** | RAG over PDFs, isolated per user and per thread | Next.js · LangGraph · pgvector · Groq | ~200ms parse · ~1.3s embed · ~500ms retrieve |
-| **[`svc/url-shortener`](https://github.com/Shardul9999/url-shortener)** | redirects + analytics, SSRF-hardened | FastAPI · Redis · Docker | 40ms → 6.7ms · 22 tests at 94% coverage |
+| **[`svc/url-shortener`](https://github.com/Shardul9999/url-shortener)** `● live` | redirects + analytics, SSRF-hardened | React · FastAPI · Neon · Upstash | 40ms → 6.7ms · 22 tests at 94% coverage |
 | **[`svc/support-copilot`](https://github.com/Shardul9999/fastapi-ai-support-copilot)** | multi-tenant support backend | FastAPI · SQLAlchemy · Alembic · pgvector | tenant-scoped, migrations under version control |
 | **[`svc/ai-gateway`](https://github.com/Shardul9999/AI-Fallback-Gateway)** | multi-provider LLM failover | Python · FastAPI | a dead provider ≠ a dead request |
 | **[`lab/pg-tuning`](https://github.com/Shardul9999/postgresql_performance_tuining)** | 1M synthetic rows, read the plan before the code | PostgreSQL · B-Tree · GIN | up to 20,000× on the worst offenders |
@@ -186,6 +205,7 @@ Anyone can list tools. These are the calls I made and what they cost me — open
 
 ```
 ✔  live         health-assistant — grounded RAG, deployed on vercel + render
+✔  live         url-shortener — redirects + analytics, deployed on vercel + render
 ●  shipping     readr — production RAG on langgraph · supabase pgvector · groq
 ◐  sharpening   backend fundamentals — async python, caching, database internals
 ○  exploring    multi-agent systems and orchestration patterns
@@ -208,7 +228,7 @@ Anyone can list tools. These are the calls I made and what they cost me — open
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/health-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/health-light.svg">
-  <img alt="Terminal running curl against shardul.sys/health, returning status up, region in-nanded-1, live health-assistant, and contact links" src="assets/health-dark.svg" width="100%">
+  <img alt="Terminal running curl against shardul.sys/health, returning status up, region in-nanded-1, live health-assistant and url-shortener, and contact links" src="assets/health-dark.svg" width="100%">
 </picture>
 
 **[portfolio](https://shardul-portfolio-iota.vercel.app/)** · **[linkedin](https://linkedin.com/in/ShardulHingane)** · **[leetcode](https://leetcode.com/u/shardul_16/)** · **[email](mailto:shardulhingane16@gmail.com)**
