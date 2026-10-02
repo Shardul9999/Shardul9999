@@ -231,6 +231,6 @@ Anyone can list tools. These are the calls I made and what they cost me — open
   <img alt="Terminal running curl against shardul.sys/health, returning status up, region in-nanded-1, live health-assistant and url-shortener, and contact links" src="assets/health-dark.svg" width="100%">
 </picture>
 
-**[portfolio](https://shardul-portfolio-iota.vercel.app/)** · **[linkedin](https://linkedin.com/in/ShardulHingane)** · **[leetcode](https://leetcode.com/u/shardul_16/)** · **[email](mailto:shardulhingane16@gmail.com)**
+**[portfolio](https://shardulportfolio-rose.vercel.app/)** · **[linkedin](https://linkedin.com/in/ShardulHingane)** · **[leetcode](https://leetcode.com/u/shardul_16/)** · **[email](mailto:shardulhingane16@gmail.com)**
 
 <sub>Everything above is generated from a script in <a href="assets/build_svgs.py"><code>assets/</code></a> — no third-party stat services, no tracking pixels, nothing that can 404 on me.</sub>
