@@ -6,76 +6,62 @@
   <img alt="shardul.sys — service topology: client → edge/gateway → four services, two of them live → redis, postgres, pgvector" src="assets/system-dark.svg" width="100%">
 </picture>
 
-```http
-GET /whoami HTTP/1.1
-Host: shardul.sys
-
-HTTP/1.1 200 OK
-content-type: application/json
-```
-
-```json
-{
-  "name":    "Shardul Shripad Hingane",
-  "role":    "backend & AI systems engineer",
-  "host":    "SGGS Nanded · B.Tech IT · 2024→2027 · CGPA 8.5",
-  "runtime": "async python · fastapi · postgres · redis",
-  "solved":  "400+ DSA problems, still counting",
-
-  "thesis": [
-    "a queue that loses jobs was never a queue",
-    "a cache that lies is worse than no cache at all",
-    "an LLM call with no fallback is a single point of failure",
-    "a model that cannot cite its source should say so instead"
-  ],
-
-  "status":  "shipping · open to backend / AI-infra work"
-}
+```text
+GET /whoami → 200 OK
+Shardul Shripad Hingane · Backend & AI systems engineer
+Building reliable APIs and grounded AI. Open to backend / AI-infra work.
 ```
 
 ---
 
 ## `GET /live` &nbsp;`200 OK`
 
-**[health-assistant](https://github.com/Shardul9999/Health_Assistant)** — a grounded RAG symptom-checker that refuses to guess. Deployed and answering requests right now:
+### health-assistant · `live`
 
-### **[→ open the app](https://health-assistant-lake.vercel.app)** &nbsp;·&nbsp; [api `/health`](https://health-assistant-api-3aoy.onrender.com/health)
+Grounded health Q&A with source citations, red-flag checks, and refusal when sources fall short.
 
-It answers health questions from verified sources only — WHO, NHS, NIH, CDC — and every answer is traceable to the chunk it came from. It never diagnoses. Serious symptoms short-circuit the pipeline *before* retrieval and *before* the model, and when nothing clears the similarity floor it says so instead of answering from model knowledge.
+**90% retrieval hit rate** in a 30-question in-corpus benchmark.<br>
+[Demo](https://health-assistant-lake.vercel.app) · [Code](https://github.com/Shardul9999/Health_Assistant) · [API health](https://health-assistant-api-3aoy.onrender.com/health)
 
-`Vite + React 18 + TS on Vercel` · `FastAPI in Docker on Render` · `Postgres 16 + pgvector on Neon` · `Redis on Upstash` · `Clerk auth` · `Groq primary, Gemini fallback`
+<details>
+<summary>Benchmarks & deployment</summary>
 
-Measured across 50 documents / 168 chunks — the full run is in [`docs/BENCHMARKS.md`](https://github.com/Shardul9999/Health_Assistant/blob/main/docs/BENCHMARKS.md):
+React · FastAPI · Postgres + pgvector · Redis · Groq / Gemini fallback.
 
-| | |
+Measured across 50 documents / 168 chunks. [Full benchmark report](https://github.com/Shardul9999/Health_Assistant/blob/main/docs/BENCHMARKS.md).
+
+| Metric | Result |
 |---|---|
-| retrieval hit rate, in-corpus | **90%** — 27/30 |
-| false hits, out-of-corpus | **0%** — 0/8, with a 0.172 similarity margin |
-| answers carrying citations | **100%** — 27/27, and 129/129 citations valid |
-| red-flag detection | **100%** — 12/12, none of which reached the model |
-| end-to-end p50 / p95 | **2512ms / 3981ms** |
+| Retrieval hit rate, in-corpus | 90% — 27/30 |
+| False hits, out-of-corpus | 0/8 — similarity margin 0.172 |
+| Answers carrying citations | 27/27 — all 129 citations valid |
+| Red-flag detection | 12/12 — none reached the model |
+| End-to-end p50 / p95 | 2512ms / 3981ms |
 
-> [!NOTE]
-> The API sleeps after 15 minutes idle on Render's free tier. Open the `/health` link first — a cold start takes 30–60s — then the app.
+</details>
 
-<br>
+<sub>Health-assistant may take 30–60s to wake up. Open API health first if the demo is waiting.</sub>
 
-**[url-shortener](https://github.com/Shardul9999/url-shortener)** — sub-millisecond cached redirects, sliding-window limits & click analytics. Deployed and live:
+### url-shortener · `live`
 
-### **[→ open the app](https://url-shortener-eight-murex.vercel.app/)** &nbsp;·&nbsp; [api `/health`](https://url-shortener-672q.onrender.com/health) &nbsp;·&nbsp; [api docs](https://url-shortener-672q.onrender.com/docs)
+SSRF-hardened redirects with Redis caching, rate limits, and click analytics.
 
-A production-style REST API that shortens URLs, serves sub-millisecond cached redirects, and tracks click analytics via background tasks. SSRF-hardened against cloud metadata and private IP ranges. Sliding-window rate limiting enforced atomically in Redis pipelines.
+**~6× faster cached lookups** — 39.96ms → 6.68ms in the benchmark.<br>
+[Demo](https://url-shortener-eight-murex.vercel.app/) · [Code](https://github.com/Shardul9999/url-shortener) · [API docs](https://url-shortener-672q.onrender.com/docs) · [API health](https://url-shortener-672q.onrender.com/health)
 
-`React + Vite on Vercel` · `FastAPI in Docker on Render` · `Postgres 16 on Neon` · `Redis on Upstash`
+<details>
+<summary>Benchmarks & deployment</summary>
 
-Measured directly against cache-aside:
+React · FastAPI · Postgres · Redis. Frontend on Vercel, API on Render.
 
-| | |
+| Metric | Result |
 |---|---|
-| cache miss — Postgres round-trip | **~39.96ms** |
-| cache hit — served from Redis | **~6.68ms** (6× latency reduction) |
-| test suite & coverage | **22 tests** — 94% coverage |
-| sliding-window limits | **100 req/min** (shorten) · **1 000 req/min** (redirect) |
+| Cache miss — Postgres round-trip | ~39.96ms |
+| Cache hit — Redis | ~6.68ms |
+| Test suite & coverage | 22 tests — 94% coverage |
+| Sliding-window limits | 100 req/min shorten · 1,000 req/min redirect |
+
+</details>
 
 ---
 
@@ -87,24 +73,12 @@ Measured directly against cache-aside:
   <img alt="Fleet status board: eight service tiles with status lamps — two live, four shipped, two labs" src="assets/fleet-dark.svg" width="100%">
 </picture>
 
-Same eight, with the links and the detail:
-
-| service | responsibility | stack | measured |
-|---|---|---|---|
-| **[`svc/health-assistant`](https://github.com/Shardul9999/Health_Assistant)** `● live` | grounded RAG that cites every claim and refuses below the floor | React · FastAPI · pgvector · Neon · Upstash | 90% hit rate · 0% false hits · 100% cited · p50 2512ms |
-| **[`svc/codity`](https://github.com/Shardul9999/Distributed-Job-Scheduler)** | distributed job scheduler — Postgres *is* the broker | FastAPI · PG16 · Next.js · Docker | exactly-once across 10 workers × 500 jobs · 58 endpoints · 48 CI tests |
-| **[`svc/readr`](https://github.com/Shardul9999/ai-pdf-chatbot-langchain)** | RAG over PDFs, isolated per user and per thread | Next.js · LangGraph · pgvector · Groq | ~200ms parse · ~1.3s embed · ~500ms retrieve |
-| **[`svc/url-shortener`](https://github.com/Shardul9999/url-shortener)** `● live` | redirects + analytics, SSRF-hardened | React · FastAPI · Neon · Upstash | 40ms → 6.7ms · 22 tests at 94% coverage |
-| **[`svc/support-copilot`](https://github.com/Shardul9999/fastapi-ai-support-copilot)** | multi-tenant support backend | FastAPI · SQLAlchemy · Alembic · pgvector | tenant-scoped, migrations under version control |
-| **[`svc/ai-gateway`](https://github.com/Shardul9999/AI-Fallback-Gateway)** | multi-provider LLM failover | Python · FastAPI | a dead provider ≠ a dead request |
-| **[`lab/pg-tuning`](https://github.com/Shardul9999/postgresql_performance_tuining)** | 1M synthetic rows, read the plan before the code | PostgreSQL · B-Tree · GIN | up to 20,000× on the worst offenders |
-| **[`svc/cloudbeat`](https://github.com/Shardul9999/CloudBeat)** | 3D music player over Spotify OAuth | React · Flask · Spline · Supabase | 60fps GPU scene |
+[Health Assistant](https://github.com/Shardul9999/Health_Assistant) · [Codity](https://github.com/Shardul9999/Distributed-Job-Scheduler) · [Readr](https://github.com/Shardul9999/ai-pdf-chatbot-langchain) · [URL Shortener](https://github.com/Shardul9999/url-shortener)<br>
+[Support Copilot](https://github.com/Shardul9999/fastapi-ai-support-copilot) · [AI Gateway](https://github.com/Shardul9999/AI-Fallback-Gateway) · [PG Tuning](https://github.com/Shardul9999/postgresql_performance_tuining) · [CloudBeat](https://github.com/Shardul9999/CloudBeat)
 
 ---
 
 ## `GET /traces`
-
-Two paths I measured rather than guessed at. Note the last row of the first trace: the red-flag path costs 0.1ms because it deliberately never reaches retrieval or the model.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/trace-dark.svg">
@@ -121,8 +95,6 @@ Two paths I measured rather than guessed at. Note the last row of the first trac
   <source media="(prefers-color-scheme: light)" srcset="assets/decisions-light.svg">
   <img alt="Decision log timeline: five ADRs on a spine — refuse don't guess, postgres is the queue, cache-aside only, fail over don't retry, read the plan first" src="assets/decisions-dark.svg" width="100%">
 </picture>
-
-Anyone can list tools. These are the calls I made and what they cost me — open one:
 
 <details>
 <summary><b>ADR-001</b> — The assistant refuses rather than guesses.</summary>
@@ -204,11 +176,9 @@ Anyone can list tools. These are the calls I made and what they cost me — open
 ## `GET /queue`
 
 ```
-✔  live         health-assistant — grounded RAG, deployed on vercel + render
-✔  live         url-shortener — redirects + analytics, deployed on vercel + render
-●  shipping     readr — production RAG on langgraph · supabase pgvector · groq
-◐  sharpening   backend fundamentals — async python, caching, database internals
-○  exploring    multi-agent systems and orchestration patterns
+●  shipping     readr — RAG over PDFs
+◐  sharpening   async Python · caching · database internals
+○  exploring    multi-agent orchestration
 ```
 
 ---
@@ -232,5 +202,3 @@ Anyone can list tools. These are the calls I made and what they cost me — open
 </picture>
 
 **[portfolio](https://shardulportfolio-rose.vercel.app/)** · **[linkedin](https://linkedin.com/in/ShardulHingane)** · **[leetcode](https://leetcode.com/u/shardul_16/)** · **[email](mailto:shardulhingane16@gmail.com)**
-
-<sub>Everything above is generated from a script in <a href="assets/build_svgs.py"><code>assets/</code></a> — no third-party stat services, no tracking pixels, nothing that can 404 on me.</sub>
