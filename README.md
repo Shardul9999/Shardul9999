@@ -70,26 +70,6 @@ React · FastAPI · Postgres · Redis. Frontend on Vercel, API on Render.
 
 ---
 
-## `GET /queue`
-
-```
-●  shipping     readr — RAG over PDFs
-◐  sharpening   async Python · caching · database internals
-○  exploring    multi-agent orchestration
-```
-
----
-
-## `GET /traffic`
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg">
-  <img alt="Contribution graph consumed by a snake" src="https://raw.githubusercontent.com/Shardul9999/Shardul9999/output/github-contribution-grid-snake.svg" width="100%">
-</picture>
-
----
-
 ## `GET /health`
 
 <picture>
