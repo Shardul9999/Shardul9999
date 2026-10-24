@@ -6,11 +6,15 @@
   <img alt="shardul.sys — service topology: client → edge/gateway → four services, two of them live → redis, postgres, pgvector" src="assets/system-dark.svg" width="100%">
 </picture>
 
-```text
-GET /whoami → 200 OK
-Shardul Shripad Hingane · Backend & AI systems engineer
-Building reliable APIs and grounded AI. Open to backend / AI-infra work.
-```
+## `GET /whoami` &nbsp;`200 OK`
+
+# Shardul Shripad Hingane
+
+### Backend & AI systems engineer
+
+Building reliable APIs and grounded AI.
+
+**Open to backend / AI-infra work.**
 
 ---
 
